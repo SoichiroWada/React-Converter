@@ -1,0 +1,50 @@
+body {
+  font-family: Helvetica, 'Roboto', arial, sans-serif;
+  font-size:1.2em;
+}
+.uBody{
+  margin-top:1.0em;
+  margin-left:1.0em;
+  margin-right:1.0em;
+}
+
+.rain{
+  margin-top:0.3em;
+}
+.mbtn{
+  float:right;
+  width:40px;
+  vertical-align:baseline;
+  text-transform: lowercase;
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-left:0.1em;
+  margin-right:0.3em;
+  padding-bottom:0.2em;
+}
+
+#btn-leng{
+  margin-top:1.0em;
+  margin-left:1.0em;
+  font-size:0.8em;
+}
+#btn-temp{
+  margin-top:1.0em;
+  font-size:0.8em;
+}
+
+#input{
+  font-family: 'Roboto', sans-serif;
+  font-size:1.2em;
+}
+#boil{
+  color:red;
+  font-size:16px;
+}
+#cool{
+  color:blue;
+  font-size:16px;
+}
+#h5{
+  margin-top:20px;
+}
