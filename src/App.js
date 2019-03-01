@@ -13,9 +13,9 @@ class App extends Component {
       <div className="App">
         <Navbar></Navbar>
         <Switch>
-          <Route exact path='/' component={Home}></Route>
+          <Route exact path='/' component={Length}></Route>
           <Route path='/temperature' component={Temperature}></Route>
-          <Route path='/length' component={Length}></Route>
+          <Route path='/home' component={Home}></Route>
         </Switch>
       </div>
       </BrowserRouter>

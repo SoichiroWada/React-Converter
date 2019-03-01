@@ -1,6 +1,11 @@
 body {
   font-family: Helvetica, 'Roboto', arial, sans-serif;
   font-size:1.2em;
+  color:white;
+  background-color:black;
+}
+legend{
+  text-align:left;
 }
 .uBody{
   margin-top:1.0em;
@@ -32,10 +37,14 @@ body {
   margin-top:1.0em;
   font-size:0.8em;
 }
-
+#navbar{
+  color:white;
+}
 #input{
+  text-align:right;
   font-family: 'Roboto', sans-serif;
   font-size:1.2em;
+  color:white;
 }
 #boil{
   color:red;

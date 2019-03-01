@@ -10,8 +10,9 @@ const scaleNames = {
   equator: 'Equator（赤道）',
   sun: 'Sun（寸）',
   shaku: 'Shaku（尺）',
-  ri: 'Ri （里）',
-  light: 'Light（光年）'
+  ri: 'Ri（里）',
+  light: 'Light Year（光年）',
+  yard:'Yard（ヤード）'
 };
 
 const Length = (props) => {

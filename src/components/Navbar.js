@@ -10,9 +10,8 @@ const Navbar = (props) => {
                     <div className="brand-logo" id="logo">React Converter</div>
                 </Link>
                 <ul className="right hide-on-med-and-down">
-                    <li><NavLink to="/length">Length</NavLink></li>
+                    <li><NavLink to="/">Length</NavLink></li>
                     <li><NavLink to="/temperature">Temperature</NavLink></li>
-                    <li><NavLink to="/test">Test</NavLink></li>
                 </ul>
             </div>
         </nav>
