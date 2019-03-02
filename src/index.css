@@ -39,6 +39,7 @@ legend{
 }
 #navbar{
   color:white;
+  background-color:#18929b;
 }
 #input{
   text-align:right;
@@ -56,4 +57,11 @@ legend{
 }
 #h5{
   margin-top:20px;
+}
+#ctl{
+  font-size:0.5em;
+  margin-left:2.0em;
+}
+#h4{
+  margin-left:2.0em;
 }
