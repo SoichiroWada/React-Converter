@@ -51,8 +51,8 @@ const inchToKilo = (inch) => { return inch * 0.0000254 };
 const inchToMeter = (inch) => { return inch * 0.0254 };
 const inchToCenti = (inch) => { return inch * 2.54 };
 const inchToMile = (inch) => { return inch * 15782.8282828 / 1000000000 };
-const inchToFeet = (inch) => { return inch * 83.3333 / 1000 };
-const inchToYard = (inch) => { return inch * 0.0277778 };
+const inchToFeet = (inch) => { return inch * 83.33333333333333333 / 1000 };
+const inchToYard = (inch) => { return inch * 0.0277777777777777777 };
 const inchToSun = (inch) => { return inch * 83.8201 / 1000 };
 const inchToShaku = (inch) => { return inch * 83.8201 / 1000 };
 const inchToRi = (inch) => { return inch * 6.46759214 / 1000000 };
@@ -478,7 +478,7 @@ class LengthCalculator extends React.Component {
 
     return (
       <div className="uBody row">
-      <h4 id="h4">Length Converter（長さの変換）<span id="ctl">Control key on keyboard to clear</span></h4>
+      <h4 id="h4">Length Converter（長さの変換）<span id="ctl">Delete key on keyboard to clear</span></h4>
         <div className="col s12 m6">
           <LengthInput
               scale="kilo"

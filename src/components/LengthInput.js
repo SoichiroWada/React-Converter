@@ -28,7 +28,7 @@ const Length = (props) => {
   function handleKey (event){
     // console.log('event.key:', event.key)
     // console.log('event.keyCode:',event.keyCode)
-    if (event.key === "Control") {
+    if (event.key === "Delete") {
       props.onClear()
     }
   }
