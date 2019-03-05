@@ -80,7 +80,7 @@ const feetToMeter = (feet) => { return feet * 0.3048 };
 const feetToCenti = (feet) => { return feet * 30.48 };
 const feetToInch = (feet) => { return feet * 12 };
 const feetToMile = (feet) => { return feet * 189.393939 / 1000000 };
-const feetToYard = (feet) => { return feet * 0.3333333333333};
+const feetToYard = (feet) => { return feet * 0.333333333333333333333333};
 const feetToSun = (feet) => { return feet * 10.0584 };
 const feetToShaku = (feet) => { return feet * 1.00584 };
 const feetToRi = (feet) => { return feet * 7.7611111111 };
