@@ -1,20 +1,36 @@
 import React from 'react';
 
 const scaleNames = {
-  kilo: 'Kilo Meter（キロメートル）',
-  meter: 'Meter（メートル）',
-  centi: 'Centi Meter（センチメートル）',
-  inch: 'inch（インチ）',
-  mile: 'Mile（マイル）',
-  feet: 'Feet（フィート）',
-  equator: 'Equator（地球の赤道）',
-  sun: 'Sun（寸）',
-  shaku: 'Shaku（尺）',
-  ri: 'Ri（里）',
-  light: 'Light Year（光年）',
-  lightSec: 'Light Second（光秒）',
-  yard:'Yard（ヤード）',
-  earthOrbit: 'Earth Orbit（地球の太陽周回軌道）'
+  kilo: 'Kilo Meter',
+  meter: 'Meter',
+  centi: 'Centi Meter',
+  inch: 'inch',
+  mile: 'Mile',
+  feet: 'Feet',
+  equator: 'Equator',
+  sun: 'Sun',
+  shaku: 'Shaku',
+  ri: 'Ri',
+  light: 'Light Year',
+  lightSec: 'Light Second',
+  yard:'Yard',
+  earthOrbit: 'Earth Orbit'
+};
+const scaleNames2 = {
+  kilo: '（キロメートル）',
+  meter: '（メートル）',
+  centi: '（センチメートル）',
+  inch: '（インチ）',
+  mile: '（マイル）',
+  feet: '（フィート）',
+  equator: '（地球の赤道）',
+  sun: '（寸）',
+  shaku: '（尺）',
+  ri: '（里）',
+  light: '（光年）',
+  lightSec: '（光秒）',
+  yard:'（ヤード）',
+  earthOrbit: '（地球の太陽周回軌道）'
 };
 
 const Length = (props) => {
@@ -31,13 +47,19 @@ const Length = (props) => {
     if (event.key === "Delete") {
       props.onClear()
     }
+    if (event.keyCode === 229){
+      props.onAlert(229)
+    }
+    else if (EventTarget.keyCode !== 229){
+      props.onAlert(230)
+    }
   }
 
     const length = props.length;
     const scale = props.scale;
     return (
       <fieldset className="rain">
-        <legend>Enter value in {scaleNames[scale]}</legend>
+        <legend><span id="text">Enter value in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
         <input id="input" value={length} onChange={handleChange} onKeyDown={handleKey}/>
       </fieldset>
   )

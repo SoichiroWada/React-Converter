@@ -59,9 +59,41 @@ legend{
   margin-top:20px;
 }
 #ctl{
-  font-size:0.5em;
+  font-size:0.6em;
   margin-left:2.0em;
 }
-#h4{
+#h5{
   margin-left:2.0em;
+  font-size:1.6em;
+}
+#alertM{
+  color:yellow;
+  font-size:0.6em;
+  margin-left:2.0em;
+}
+
+@media screen and (max-width: 9000px) {
+  #h5j {
+    display: inline;
+  }
+  #break {
+    display: none;
+  }
+}
+@media screen and (max-width: 992px) {
+  #text, #break, #h5j {
+    display: none;
+  }
+}
+@media screen and (max-width: 600px) {
+  #h5{
+    margin-left:0em;
+    text-align:center;
+  }
+  #h5j, #text {
+    display: none;
+  }
+  #break {
+    display: inline;
+  }
 }
