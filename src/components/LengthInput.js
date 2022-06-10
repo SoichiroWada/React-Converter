@@ -33,10 +33,14 @@ const scaleNames2 = {
   earthOrbit: '（地球の太陽周回軌道）'
 };
 
-const Length = (props) => {
+// const Length = (props) => {
+function Length (props) {
+
+  const length = props.length;
+  const scale = props.scale;
   
   function handleChange(e) {
-    props.onLengthChange(e.target.value);
+    props.onLengthChange(e.target.value, scale);
     // console.log('e.target.value:',e.target);
     // console.log('props in handleChange:',props);
   }
@@ -55,8 +59,6 @@ const Length = (props) => {
     }
   }
 
-    const length = props.length;
-    const scale = props.scale;
     return (
       <fieldset className="rain">
         <legend><span id="text">Enter value in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
