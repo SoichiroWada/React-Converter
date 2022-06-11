@@ -11,7 +11,7 @@ const scaleNames = {
   sun: 'Sun',
   shaku: 'Shaku',
   ri: 'Ri',
-  light: 'Light Year',
+  lightYear: 'Light Year',
   lightSec: 'Light Second',
   yard:'Yard',
   earthOrbit: 'Earth Orbit'
@@ -27,7 +27,7 @@ const scaleNames2 = {
   sun: '（寸）',
   shaku: '（尺）',
   ri: '（里）',
-  light: '（光年）',
+  lightYear: '（光年）',
   lightSec: '（光秒）',
   yard:'（ヤード）',
   earthOrbit: '（地球の太陽周回軌道）'
