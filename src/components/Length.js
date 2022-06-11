@@ -26,9 +26,61 @@ function tryConvert(length, originalScale, targetScale) {
 
   const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
   const output = length*ratio;
+  console.log(Number.isNaN(output))
 
-  const rounded = Math.round(output * 1000000000000) / 1000000000000;
+  const string = output.toString(10);
+  console.log('output', output);
+  console.log('string', string);
+
+  const stringToArray = string.split('');
+  console.log('stringToArray', stringToArray);
+
+  const zeroTestResult = consectiveZeroFinder(stringToArray)
+  console.log('zeroTestResult:', zeroTestResult);
+
+  if (output>1 && zeroTestResult) {
+    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
+    const zeroStartingPosition = zeroTestResult-2;
+    console.log('zeroStartingPosition', zeroStartingPosition);
+    const dotPosition = dotPositionFinder(stringToArray)+1;
+    console.log('dotPosition', dotPosition);
+
+    if (dotPosition < zeroStartingPosition) {
+      const adjustedStringToArray = stringToArray.slice(0, zeroStartingPosition-1);
+      console.log('adjustedStringToArray:', adjustedStringToArray);
+      const joined = adjustedStringToArray.join('');
+      console.log('joined',joined);
+    }
+
+  }
+
+
+  const rounded = Math.round(output * 1000000000000000) / 1000000000000000;
   return rounded.toString();
+}
+
+function consectiveZeroFinder (array) {
+  let counter = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === '0') {
+      counter++;
+      console.log('counter:',counter);
+    } else {
+      counter = 0;
+    }
+    if (counter === 4) {
+      return i;
+    }
+  }
+  return false;
+}
+
+function dotPositionFinder (array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === ".") {
+      return i;
+    }
+  }
 }
 
 class LengthCalculator extends React.Component {
