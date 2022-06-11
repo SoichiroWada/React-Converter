@@ -39,6 +39,7 @@ function tryConvert(length, originalScale, targetScale) {
   const testResultForFourZeros = consectiveZeroFinder(stringToArray, 4)
   const testResultForSevenZeros = consectiveZeroFinder(stringToArray, 7)
   console.log('testResultForFourZeros:', testResultForFourZeros);
+  console.log('testResultForSevenZeros', testResultForFourZeros);
   // const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
   const dotPosition = dotPositionFinder(stringToArray)+1;
   console.log('dotPosition', dotPosition);
@@ -60,8 +61,17 @@ function tryConvert(length, originalScale, targetScale) {
     }
   } else if (testResultForSevenZeros) {
     console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');
-    const zeroStartingPositionForSevenZeros = testResultForSevenZeros-2;
-    console.log(zeroStartingPositionForSevenZeros)
+    const zeroStartingPositionForSevenZeros = testResultForSevenZeros-5;
+    const zeroStartingPositionMinusDotPosition = zeroStartingPositionForSevenZeros - dotPosition;
+    console.log('zeroStartingPositionForSevenZeros', zeroStartingPositionForSevenZeros)
+    if (zeroStartingPositionMinusDotPosition>0 && zeroStartingPositionForSevenZeros>4) {
+      const adjustedStringToArray = stringToArray.slice(0, zeroStartingPositionForSevenZeros-1);
+      console.log('adjustedStringToArray2:', adjustedStringToArray);
+      const joined = adjustedStringToArray.join('');
+      console.log('joined',joined);
+      const converted = Number(joined);
+      return converted;
+    }
   }
 
   const rounded = Math.round(output * 1000000000000000) / 1000000000000000;
