@@ -19,6 +19,7 @@ const valuesInMeters = {
 }
 
 function tryConvert(length, originalScale, targetScale) {
+
   const input = parseFloat(length);
   if (Number.isNaN(input)) {
     return '';
@@ -35,31 +36,39 @@ function tryConvert(length, originalScale, targetScale) {
   const stringToArray = string.split('');
   console.log('stringToArray', stringToArray);
 
-  const zeroTestResult = consectiveZeroFinder(stringToArray)
-  console.log('zeroTestResult:', zeroTestResult);
+  const testResultForFourZeros = consectiveZeroFinder(stringToArray, 4)
+  const testResultForSevenZeros = consectiveZeroFinder(stringToArray, 7)
+  console.log('testResultForFourZeros:', testResultForFourZeros);
+  // const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
+  const dotPosition = dotPositionFinder(stringToArray)+1;
+  console.log('dotPosition', dotPosition);
 
-  if (output>1 && zeroTestResult) {
+  // zero continues just after dot for 4 zeros
+  if (output>1 && testResultForFourZeros) {
+    console.log(targetScale);
     console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
-    const zeroStartingPosition = zeroTestResult-2;
-    console.log('zeroStartingPosition', zeroStartingPosition);
-    const dotPosition = dotPositionFinder(stringToArray)+1;
-    console.log('dotPosition', dotPosition);
+    const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
+    console.log('zeroStartingPositionForFourZeros', zeroStartingPositionForFourZeros);
 
-    if (dotPosition < zeroStartingPosition) {
-      const adjustedStringToArray = stringToArray.slice(0, zeroStartingPosition-1);
+    if (dotPosition < zeroStartingPositionForFourZeros) {
+      const adjustedStringToArray = stringToArray.slice(0, zeroStartingPositionForFourZeros-1);
       console.log('adjustedStringToArray:', adjustedStringToArray);
       const joined = adjustedStringToArray.join('');
       console.log('joined',joined);
+      const converted = Number(joined);
+      return converted;
     }
-
+  } else if (testResultForSevenZeros) {
+    console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');
+    const zeroStartingPositionForSevenZeros = testResultForSevenZeros-2;
+    console.log(zeroStartingPositionForSevenZeros)
   }
 
-
   const rounded = Math.round(output * 1000000000000000) / 1000000000000000;
-  return rounded.toString();
+  return rounded;
 }
 
-function consectiveZeroFinder (array) {
+function consectiveZeroFinder (array, zeroCount) {
   let counter = 0;
   for (let i = 0; i < array.length; i++) {
     if (array[i] === '0') {
@@ -68,7 +77,7 @@ function consectiveZeroFinder (array) {
     } else {
       counter = 0;
     }
-    if (counter === 4) {
+    if (counter === zeroCount) {
       return i;
     }
   }
