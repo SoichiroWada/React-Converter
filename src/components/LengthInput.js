@@ -33,7 +33,6 @@ const scaleNames2 = {
   earthOrbit: '（地球の太陽周回軌道）'
 };
 
-// const Length = (props) => {
 function Length (props) {
 
   const length = props.length;
@@ -41,13 +40,10 @@ function Length (props) {
   
   function handleChange(e) {
     props.onLengthChange(e.target.value, scale);
-    // console.log('e.target.value:',e.target);
-    // console.log('props in handleChange:',props);
   }
 
   function handleKey (event){
-    // console.log('event.key:', event.key)
-    // console.log('event.keyCode:',event.keyCode)
+
     if (event.key === "Delete") {
       props.onClear()
     }
