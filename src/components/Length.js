@@ -18,18 +18,15 @@ const valuesInMeters = {
   lightYear:9460730472580800,
 }
 
-function converter (length, originalScale, targetScale) {
-  const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
-  const calculatedValue = length*ratio;
-  return calculatedValue;
-}
-
 function tryConvert(length, originalScale, targetScale) {
   const input = parseFloat(length);
   if (Number.isNaN(input)) {
     return '';
   }
-  const output = converter(input, originalScale, targetScale);
+
+  const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
+  const output = length*ratio;
+
   const rounded = Math.round(output * 1000000000000) / 1000000000000;
   return rounded.toString();
 }
@@ -175,14 +172,14 @@ class LengthCalculator extends React.Component {
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
             <LengthInput
-                scale="lightYear"
-                length={lightYear}
+                scale="earthOrbit"
+                length={earthOrbit}
                 onClear={this.clear}
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
             <LengthInput
-                scale="earthOrbit"
-                length={earthOrbit}
+                scale="lightYear"
+                length={lightYear}
                 onClear={this.clear}
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
