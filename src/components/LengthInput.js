@@ -39,7 +39,7 @@ const scaleNames2 = {
   ri: '（里）',
   kairi: '（海里）',
   fuji:'（富士山）',
-  everest:'エベレスト',
+  everest:'（エベレスト）',
   tokyoLondon: '（東京－ロンドン間）',
   equator: '（地球の赤道）',
   lightSec: '（光秒）',
