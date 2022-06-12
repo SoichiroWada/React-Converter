@@ -17,7 +17,7 @@ const scaleNames = {
   kairi: 'Kairi',  
   fuji:'Mt. Fuji',
   everest: 'Mt. Everest',
-  tokyoLondon: 'Distance Tokyo London',
+  tokyoLondon: 'Tokyo - London',
   equator: 'Equator',
   lightSec: 'Light Second',
   earthOrbit: 'Earth Orbit',
@@ -60,11 +60,13 @@ function Length (props) {
 
     if (event.key === "Delete") {
       props.onClear()
+    } else if (event.keyCode === 32) {
+      props.onClear()
     }
+
     if (event.keyCode === 229){
       props.onAlert(229)
-    }
-    else if (EventTarget.keyCode !== 229){
+    } else if (EventTarget.keyCode !== 229){
       props.onAlert(230)
     }
   }

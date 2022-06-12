@@ -59,20 +59,26 @@ legend{
   margin-top:20px;
 }
 #ctl{
-  font-size:0.6em;
+  font-size:0.8em;
   margin-left:2.0em;
 }
 #h5{
   margin-left:2.0em;
-  font-size:1.6em;
+  font-size:1.2em;
 }
 #alertM{
   color:yellow;
   font-size:0.6em;
   margin-left:2.0em;
 }
+#logo{
+  margin-left:1%;
+}
+#links{
+  margin-right:1%;
+}
 
-@media screen and (max-width: 9000px) {
+@media screen and (max-width: 3600px) {
   #h5j {
     display: inline;
   }
@@ -97,3 +103,5 @@ legend{
     display: inline;
   }
 }
+
+

@@ -84,8 +84,9 @@ function tryConvert(length, originalScale, targetScale) {
     }
   }
 
-  const rounded = Math.round(output * 1000000000000) / 1000000000000;
+  const rounded = Math.round(output * 1000000000) / 1000000000;
   return rounded;
+  // return output;
 }
 
 function consectiveZeroFinder (array, zeroCount) {
@@ -200,7 +201,7 @@ class LengthCalculator extends React.Component {
     return (
       <div>
       <h5 id="h5">Length Converter<span id="h5j">（長さの変換）</span><br id="break"></br>
-      <span id="ctl" style={bStyle}>Delete key on keyboard to clear</span>
+      <span id="ctl" style={bStyle}>Delete key and Space key on keyboard to clear</span>
       <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
       </h5>
       <div className="uBody row">
