@@ -10,11 +10,11 @@ const valuesInMeters = {
   feet:0.3048,
   yard:0.9144,
   mile:1609.344,
-  sun:0.0303030303030,
-  shaku:0.3030303030303,
-  ken:1.818181818,
-  cho:0.0091666666667,
-  ri:3927.27272727272,
+  sun:0.030303030303030303030303,
+  shaku:0.30303030303030303030303,
+  ken:1.818181818181818181818181818,
+  cho:109.090909090909090909090,
+  ri:3927.272727272727272727272,
   kairi:1852,
   fuji:3776,
   everest:8848.86,
@@ -204,7 +204,7 @@ class LengthCalculator extends React.Component {
       <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
       </h5>
       <div className="uBody row">
-        <div className="col s12 m6">
+        <div className="col s12 m4">
           <LengthInput
               scale="kilo"
               length={kilo}
@@ -249,7 +249,7 @@ class LengthCalculator extends React.Component {
               onLengthChange={this.handleChange} />
         </div>
 
-        <div className="col s12 m6">
+        <div className="col s12 m4">
             <LengthInput
               scale="mile"
               length={mile}
@@ -294,50 +294,50 @@ class LengthCalculator extends React.Component {
               onLengthChange={this.handleChange} />
         </div>
 
-        <div className="col s12 m6">
+        <div className="col s12 m4">
             
-          <LengthInput
-                scale="fuji"
-                length={fuji}
+            <LengthInput
+              scale="fuji"
+              length={fuji}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
+            <LengthInput
+              scale="everest"
+              length={everest}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
+            <LengthInput
+              scale="tokyoLondon"
+              length={tokyoLondon}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />                               
+            <LengthInput
+              scale="equator"
+              length={equator}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
+            <LengthInput
+                scale="lightSec"
+                length={lightSec}
                 onClear={this.clear}
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
-              <LengthInput
-                scale="everest"
-                length={everest}
+            <LengthInput
+                scale="earthOrbit"
+                length={earthOrbit}
                 onClear={this.clear}
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
-          <LengthInput
-                scale="tokyoLondon"
-                length={tokyoLondon}
-                onClear={this.clear}
-                onAlert={this.alertMessage}
-                onLengthChange={this.handleChange} />                               
-              <LengthInput
-                scale="equator"
-                length={equator}
+            <LengthInput
+                scale="lightYear"
+                length={lightYear}
                 onClear={this.clear}
                 onAlert={this.alertMessage}
                 onLengthChange={this.handleChange} />
-              <LengthInput
-                  scale="lightSec"
-                  length={lightSec}
-                  onClear={this.clear}
-                  onAlert={this.alertMessage}
-                  onLengthChange={this.handleChange} />
-              <LengthInput
-                  scale="earthOrbit"
-                  length={earthOrbit}
-                  onClear={this.clear}
-                  onAlert={this.alertMessage}
-                  onLengthChange={this.handleChange} />
-              <LengthInput
-                  scale="lightYear"
-                  length={lightYear}
-                  onClear={this.clear}
-                  onAlert={this.alertMessage}
-                  onLengthChange={this.handleChange} />
         </div>
         <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
       </div>
