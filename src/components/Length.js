@@ -84,7 +84,7 @@ function tryConvert(length, originalScale, targetScale) {
     }
   }
 
-  const rounded = Math.round(output * 1000000000000000) / 1000000000000000;
+  const rounded = Math.round(output * 1000000000000) / 1000000000000;
   return rounded;
 }
 
