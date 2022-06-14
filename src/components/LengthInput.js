@@ -74,7 +74,7 @@ function LengthInput (props) {
 
     return (
       <fieldset className="rain">
-        <legend><span id="text">Enter value in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+        <legend><span id="text">Scale in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
         <input id="input" value={lengthN} onChange={handleChange} onKeyDown={handleKey}/>
       </fieldset>
   )
