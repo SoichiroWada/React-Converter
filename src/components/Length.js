@@ -38,13 +38,11 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   const output = input*ratio;
   const string = output.toString(10);
   const stringArray = string.split('');
-  console.log('stringArray',targetScale, stringArray);
 
   const testResultForFourZeros = consectiveZeroFinder(stringArray, 4)
   const testResultForSevenZeros = consectiveZeroFinder(stringArray, 7)
 
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
-  console.log('dotPosition', targetScale, dotPosition)
 
   // zero continues after dot for 4 zeros
   if (dotPosition && output>1 && testResultForFourZeros) {
@@ -69,6 +67,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   }
   const rounded = Math.round(output * 1000000000) / 1000000000;
   return rounded.toString(10);
+
 }
 
 function consectiveZeroFinder (array, zeroCount) {
