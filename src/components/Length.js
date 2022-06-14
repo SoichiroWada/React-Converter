@@ -34,51 +34,51 @@ function tryConvert(length, originalScale, targetScale) {
 
   const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
   const output = length*ratio;
-  console.log('false indicates Number:',Number.isNaN(output))
+  // console.log('false indicates Number:',Number.isNaN(output))
 
   const string = output.toString(10);
-  console.log('output', output);
-  console.log('string', string);
+  // console.log('output', output);
+  // console.log('string', string);
 
   const stringArray = string.split('');
-  console.log('stringArray', stringArray);
+  // console.log('stringArray', stringArray);
 
   const testResultForFourZeros = consectiveZeroFinder(stringArray, 4)
   const testResultForSevenZeros = consectiveZeroFinder(stringArray, 7)
-  console.log('testResultForFourZeros:', testResultForFourZeros);
-  console.log('testResultForSevenZeros', testResultForFourZeros);
+  // console.log('testResultForFourZeros:', testResultForFourZeros);
+  // console.log('testResultForSevenZeros', testResultForFourZeros);
   // const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
   const dotPosition = dotPositionFinder(stringArray)+1;
-  console.log('dotPosition', dotPosition);
+  // console.log('dotPosition', dotPosition);
 
   // zero continues after dot for 4 zeros
   if (output>1 && testResultForFourZeros) {
-    console.log(targetScale);
-    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
+    // console.log(targetScale);
+    // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
     const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
-    console.log('zeroStartingPositionForFourZeros', zeroStartingPositionForFourZeros);
+    // console.log('zeroStartingPositionForFourZeros', zeroStartingPositionForFourZeros);
 
     if (dotPosition < zeroStartingPositionForFourZeros) {
       const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForFourZeros-1);
-      console.log('slicedStringToArray:', slicedStringToArray);
+      // console.log('slicedStringToArray:', slicedStringToArray);
       const joined = slicedStringToArray.join('');
-      console.log('joined',joined);
+      // console.log('joined',joined);
       const converted = Number(joined);
       return converted;
     }
   } 
   //zero continues 7 times after dot even if the number is zero dot ...
   else if (testResultForSevenZeros) {
-    console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');
+    // console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');
     const zeroStartingPositionForSevenZeros = testResultForSevenZeros-5;
 
     const checkResult = betweenDotAndStartingZeroFinder(stringArray, dotPosition, zeroStartingPositionForSevenZeros);
 
     if (dotPosition < zeroStartingPositionForSevenZeros && checkResult === "otherNumber") {
       const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForSevenZeros-1);
-      console.log('slicedStringToArray2:', slicedStringToArray);
+      // console.log('slicedStringToArray2:', slicedStringToArray);
       const joined = slicedStringToArray.join('');
-      console.log('joined string:',joined);
+      // console.log('joined string:',joined);
       const converted = Number(joined);
       return converted;
     }
@@ -94,7 +94,7 @@ function consectiveZeroFinder (array, zeroCount) {
   for (let i = 0; i < array.length; i++) {
     if (array[i] === '0') {
       counter++;
-      console.log('counter:',counter);
+      // console.log('counter:',counter);
     } else {
       counter = 0;
     }
@@ -116,7 +116,7 @@ function dotPositionFinder (array) {
 function betweenDotAndStartingZeroFinder (array, dotStart, zeroStart) {
 
   const slicedArrayForOtherNumberCheck = array.slice(dotStart, zeroStart-1);
-  console.log('slicedArrayForOtherNumberCheck',slicedArrayForOtherNumberCheck)
+  // console.log('slicedArrayForOtherNumberCheck',slicedArrayForOtherNumberCheck)
 
   let counter = 0;
 
@@ -125,10 +125,10 @@ function betweenDotAndStartingZeroFinder (array, dotStart, zeroStart) {
       counter++;
     }
     if (counter === slicedArrayForOtherNumberCheck.length) {
-      console.log("allZero")
+      // console.log("allZero")
       return "allZero";
     } else {
-      console.log("otherNumber")
+      // console.log("otherNumber")
       return "otherNumber"
     }
   }
