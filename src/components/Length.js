@@ -46,56 +46,6 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
   console.log('dotPosition', targetScale, dotPosition)
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  const firstHalf = dotPosition === null ? stringArray.slice(0): stringArray.slice(0,dotPosition-1);
-  console.log('firstHalf', firstHalf);
-
-  const latterHalf = dotPosition === null ? null: stringArray.slice(dotPosition);
-  console.log('latterHalf', latterHalf);
-
-  let numberOfCommas = 0;
-  if (firstHalf.length % 3 === 0) {
-    numberOfCommas = Math.floor(firstHalf.length / 3) - 1;
-    console.log('numberOfCommas', numberOfCommas)
-  } else {
-    numberOfCommas = Math.floor(firstHalf.length / 3);
-    console.log('numberOfCommas', numberOfCommas)
-  }
-
-  let commaInsertedArray = [];
-  let firstHalfCopied = [...firstHalf];
-
-  if (numberOfCommas === 0) {
-      commaInsertedArray = [...firstHalfCopied];
-  } else {
-      for (let i = 1; i <= numberOfCommas; i++) {
-        const element = firstHalfCopied.slice(-3);
-        commaInsertedArray.unshift(...element);
-        commaInsertedArray.unshift(',')
-        firstHalfCopied = [...firstHalfCopied.slice(0,-3)]
-        if (i === numberOfCommas) {
-          commaInsertedArray = [...firstHalfCopied, ...commaInsertedArray];
-        }
-      }
-  }
-
-  console.log('commaInsertedArray', commaInsertedArray);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-  let outputCommaSeparated = [];
-  if (latterHalf) {
-    outputCommaSeparated = [...commaInsertedArray, '.', ...latterHalf];
-  } else {
-    outputCommaSeparated = [...commaInsertedArray];
-  }
-
-  console.log('outputCommaSeparated', outputCommaSeparated)
-  const outputCommaSeparatedStr = outputCommaSeparated.join('');
-  console.log('outputCommaSeparatedStr', outputCommaSeparatedStr);
-
-  // return outputCommaSeparatedStr;
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-
   // zero continues after dot for 4 zeros
   if (dotPosition && output>1 && testResultForFourZeros) {
     const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
