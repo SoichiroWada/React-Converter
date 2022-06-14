@@ -27,12 +27,12 @@ const valuesInMeters = {
 
 function tryConvert(lengthStr, originalScale, targetScale) {
   if (originalScale === targetScale){
-    return;
+    return Number(lengthStr);
   }
-  console.log('lengthStr', lengthStr, typeof(lengthStr));
+  // console.log('lengthStr', lengthStr, typeof(lengthStr));
 
   const input = parseFloat(lengthStr);
-  console.log('input',input, typeof(input));
+  // console.log('input',input, typeof(input));
 
   if (Number.isNaN(input)) {
     return '';
@@ -54,11 +54,11 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   // console.log('testResultForFourZeros:', testResultForFourZeros);
   // console.log('testResultForSevenZeros', testResultForFourZeros);
   // const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
-  const dotPosition = dotPositionFinder(stringArray)+1;
-  // console.log('dotPosition', dotPosition);
+  const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
+  console.log('dotPosition', targetScale, dotPosition);
 
   // zero continues after dot for 4 zeros
-  if (output>1 && testResultForFourZeros) {
+  if (dotPosition && output>1 && testResultForFourZeros) {
     // console.log(targetScale);
     // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
     const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
@@ -74,7 +74,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
     }
   } 
   //zero continues 7 times after dot even if the number is zero dot ...
-  else if (testResultForSevenZeros) {
+  else if (dotPosition && testResultForSevenZeros) {
     // console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW');
     const zeroStartingPositionForSevenZeros = testResultForSevenZeros-5;
 
@@ -117,7 +117,18 @@ function dotPositionFinder (array) {
       return i;
     }
   }
+  return NaN;
 }
+
+// function dotMultiplicationChecker (array) {
+//   let dotArray = [];
+//   for (let i = 0; i < array.length; i++) {
+//     if (array[i] === ".") {
+//       dotArray.push(i)
+//     }
+//   }
+//   return dotArray;
+// }
 
 function betweenDotAndStartingZeroFinder (array, dotStart, zeroStart) {
 
@@ -152,8 +163,9 @@ class LengthCalculator extends React.Component {
       originalScale:'',
       lengthStr:'',
       inputArray:[],
+      dotPosition:null,
       lastInputCharacterIsDot: false,
-      alertMessage:'OFF'
+      alertMessage:'OFF',
     };
   }
 
@@ -161,26 +173,34 @@ class LengthCalculator extends React.Component {
 
     console.log('lengthStr:', lengthStr, typeof(lengthStr));
     console.log('lengthStr.charAt(lengthStr.length - 1)',lengthStr.charAt(lengthStr.length - 1));
-    const lastInputCharacter = lengthStr.charAt(lengthStr.length - 1);
-    let inputArray = this.state.inputArray;
-    inputArray.push(lastInputCharacter);
-    console.log('inputArray:', this.state.inputArray)
 
-    const numbersStr = ['0','1','2','3','4','5','6','7','8','9'];
+    // const lastInputCharacter = lengthStr.charAt(lengthStr.length - 1);
+    // let updatedArray = this.state.updatedArray;
+    // updatedArray.push(lastInputCharacter);
 
-    if (this.state.lengthStr === "" && lastInputCharacter === ".") {
-      alert('Invalid Input Value!');
-    } else if (this.state.lastInputCharacterIsDot === false && lastInputCharacter === ".") {
-      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBun!');
-      this.setState({lastInputCharacterIsDot: true, originalScale: scale, lengthStr:lengthStr});
-      console.log('lengthStr:', lengthStr, typeof(lengthStr));
-    } else if (this.state.lastInputCharacterIsDot === true && lastInputCharacter === ".") {
-      alert('Invalid Input Value!');
-    } else if (this.state.lastInputCharacterIsDot === true && numbersStr.includes(lastInputCharacter)) {
-      this.setState({lastInputCharacterIsDot: false, originalScale: scale, lengthStr:lengthStr});
-    } else{
-      this.setState({originalScale: scale, lengthStr:lengthStr});
-    }
+
+    const updatedArray = lengthStr.split('');
+    this.setState({updatedArray: updatedArray})
+    console.log('updatedArray:', this.state.updatedArray)
+
+    const dotPositionValue = dotPositionFinder(updatedArray);
+    console.log(dotPositionValue);
+
+    const dotPositionSearched = dotPositionFinder(updatedArray) === null ? dotPositionFinder(updatedArray) + 1: null;
+    console.log('dotPositionSearched', dotPositionSearched)
+    this.setState({dotPosition: dotPositionSearched});
+
+    // const numbersStr = ['0','1','2','3','4','5','6','7','8','9'];
+
+    // if (dotPositionValue === 0){
+    //   alert('Invalid Input Value!');
+    // } else if (this.state.dotPosition > 0 && lastInputCharacter === ".") {
+    //   alert('Invalid Input Value!');
+    // } else{
+    //   this.setState({originalScale: scale, lengthStr:lengthStr});
+    // }
+
+    this.setState({originalScale: scale, lengthStr:lengthStr});
   }
 
   clear(){
@@ -202,9 +222,7 @@ class LengthCalculator extends React.Component {
   render() {
     
     const originalScale = this.state.originalScale;
-    const stringArray = this.state.inputArray;
-    const lengthStr= stringArray.join('');
-    // const lengthStr = this.state.lengthStr;
+    const lengthStr = this.state.lengthStr;
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
     const bStyle = this.state.alertMessage === "OFF" ? {display: "inline"} : {display:"none"};
 
