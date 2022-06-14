@@ -120,16 +120,6 @@ function dotPositionFinder (array) {
   return NaN;
 }
 
-// function dotMultiplicationChecker (array) {
-//   let dotArray = [];
-//   for (let i = 0; i < array.length; i++) {
-//     if (array[i] === ".") {
-//       dotArray.push(i)
-//     }
-//   }
-//   return dotArray;
-// }
-
 function betweenDotAndStartingZeroFinder (array, dotStart, zeroStart) {
 
   const slicedArrayForOtherNumberCheck = array.slice(dotStart, zeroStart-1);
@@ -162,9 +152,6 @@ class LengthCalculator extends React.Component {
     this.state = { 
       originalScale:'',
       lengthStr:'',
-      inputArray:[],
-      dotPosition:null,
-      lastInputCharacterIsDot: false,
       alertMessage:'OFF',
     };
   }
@@ -172,40 +159,12 @@ class LengthCalculator extends React.Component {
   handleChange(lengthStr, scale) {
 
     console.log('lengthStr:', lengthStr, typeof(lengthStr));
-    console.log('lengthStr.charAt(lengthStr.length - 1)',lengthStr.charAt(lengthStr.length - 1));
-
-    // const lastInputCharacter = lengthStr.charAt(lengthStr.length - 1);
-    // let updatedArray = this.state.updatedArray;
-    // updatedArray.push(lastInputCharacter);
-
-
-    const updatedArray = lengthStr.split('');
-    this.setState({updatedArray: updatedArray})
-    console.log('updatedArray:', this.state.updatedArray)
-
-    const dotPositionValue = dotPositionFinder(updatedArray);
-    console.log(dotPositionValue);
-
-    const dotPositionSearched = dotPositionFinder(updatedArray) === null ? dotPositionFinder(updatedArray) + 1: null;
-    console.log('dotPositionSearched', dotPositionSearched)
-    this.setState({dotPosition: dotPositionSearched});
-
-    // const numbersStr = ['0','1','2','3','4','5','6','7','8','9'];
-
-    // if (dotPositionValue === 0){
-    //   alert('Invalid Input Value!');
-    // } else if (this.state.dotPosition > 0 && lastInputCharacter === ".") {
-    //   alert('Invalid Input Value!');
-    // } else{
-    //   this.setState({originalScale: scale, lengthStr:lengthStr});
-    // }
-
     this.setState({originalScale: scale, lengthStr:lengthStr});
   }
 
   clear(){
     console.clear();
-    this.setState({ originalScale:'', lengthStr:'', inputArray:[], lastInputCharacterIsDot:false, alertMessage: 'OFF'});
+    this.setState({ originalScale:'', lengthStr:'', alertMessage: 'OFF'});
   }
   alertMessage(arr){
     if (arr === 229){
