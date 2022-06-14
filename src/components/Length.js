@@ -27,7 +27,7 @@ const valuesInMeters = {
 
 function tryConvert(lengthStr, originalScale, targetScale) {
   if (originalScale === targetScale){
-    return Number(lengthStr);
+    return lengthStr;
   }
   // console.log('lengthStr', lengthStr, typeof(lengthStr));
 
@@ -55,7 +55,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   // console.log('testResultForSevenZeros', testResultForFourZeros);
   // const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
-  console.log('dotPosition', targetScale, dotPosition);
+  // console.log('dotPosition', targetScale, dotPosition);
 
   // zero continues after dot for 4 zeros
   if (dotPosition && output>1 && testResultForFourZeros) {
