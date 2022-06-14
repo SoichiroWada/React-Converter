@@ -26,7 +26,9 @@ const valuesInMeters = {
 }
 
 function tryConvert(lengthStr, originalScale, targetScale) {
-
+  if (originalScale === targetScale){
+    return;
+  }
   console.log('lengthStr', lengthStr, typeof(lengthStr));
 
   const input = parseFloat(lengthStr);
@@ -89,7 +91,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   }
 
   const rounded = Math.round(output * 1000000000) / 1000000000;
-  return rounded;
+  return rounded
   // return output;
 }
 
@@ -157,7 +159,6 @@ class LengthCalculator extends React.Component {
 
   handleChange(lengthStr, scale) {
 
-
     console.log('lengthStr:', lengthStr, typeof(lengthStr));
     console.log('lengthStr.charAt(lengthStr.length - 1)',lengthStr.charAt(lengthStr.length - 1));
     const lastInputCharacter = lengthStr.charAt(lengthStr.length - 1);
@@ -201,7 +202,9 @@ class LengthCalculator extends React.Component {
   render() {
     
     const originalScale = this.state.originalScale;
-    const lengthStr= this.state.lengthStr;
+    const stringArray = this.state.inputArray;
+    const lengthStr= stringArray.join('');
+    // const lengthStr = this.state.lengthStr;
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
     const bStyle = this.state.alertMessage === "OFF" ? {display: "inline"} : {display:"none"};
 
