@@ -25,15 +25,19 @@ const valuesInMeters = {
   lightYear:9460730472580800,
 }
 
-function tryConvert(length, originalScale, targetScale) {
+function tryConvert(lengthStr, originalScale, targetScale) {
 
-  const input = parseFloat(length);
+  console.log('lengthStr', lengthStr, typeof(lengthStr));
+
+  const input = parseFloat(lengthStr);
+  console.log('input',input, typeof(input));
+
   if (Number.isNaN(input)) {
     return '';
   }
 
   const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
-  const output = length*ratio;
+  const output = input*ratio;
   // console.log('false indicates Number:',Number.isNaN(output))
 
   const string = output.toString(10);
@@ -144,18 +148,43 @@ class LengthCalculator extends React.Component {
 
     this.state = { 
       originalScale:'',
-      length:'',
+      lengthStr:'',
+      inputArray:[],
+      lastInputCharacterIsDot: false,
       alertMessage:'OFF'
     };
   }
 
-  handleChange(length, scale) {
-    this.setState({originalScale: scale, length: length});
+  handleChange(lengthStr, scale) {
+
+
+    console.log('lengthStr:', lengthStr, typeof(lengthStr));
+    console.log('lengthStr.charAt(lengthStr.length - 1)',lengthStr.charAt(lengthStr.length - 1));
+    const lastInputCharacter = lengthStr.charAt(lengthStr.length - 1);
+    let inputArray = this.state.inputArray;
+    inputArray.push(lastInputCharacter);
+    console.log('inputArray:', this.state.inputArray)
+
+    const numbersStr = ['0','1','2','3','4','5','6','7','8','9'];
+
+    if (this.state.lengthStr === "" && lastInputCharacter === ".") {
+      alert('Invalid Input Value!');
+    } else if (this.state.lastInputCharacterIsDot === false && lastInputCharacter === ".") {
+      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBun!');
+      this.setState({lastInputCharacterIsDot: true, originalScale: scale, lengthStr:lengthStr});
+      console.log('lengthStr:', lengthStr, typeof(lengthStr));
+    } else if (this.state.lastInputCharacterIsDot === true && lastInputCharacter === ".") {
+      alert('Invalid Input Value!');
+    } else if (this.state.lastInputCharacterIsDot === true && numbersStr.includes(lastInputCharacter)) {
+      this.setState({lastInputCharacterIsDot: false, originalScale: scale, lengthStr:lengthStr});
+    } else{
+      this.setState({originalScale: scale, lengthStr:lengthStr});
+    }
   }
 
   clear(){
     console.clear();
-    this.setState({ originalScale:'', length:'' });
+    this.setState({ originalScale:'', lengthStr:'', inputArray:[], lastInputCharacterIsDot:false, alertMessage: 'OFF'});
   }
   alertMessage(arr){
     if (arr === 229){
@@ -172,31 +201,31 @@ class LengthCalculator extends React.Component {
   render() {
     
     const originalScale = this.state.originalScale;
-    const length = this.state.length;
+    const lengthStr= this.state.lengthStr;
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
     const bStyle = this.state.alertMessage === "OFF" ? {display: "inline"} : {display:"none"};
 
-    const kilo = tryConvert(length, originalScale, "kilo")
-    const meter = tryConvert(length, originalScale, "meter")
-    const centi = tryConvert(length, originalScale, "centi")
-    const milli = tryConvert(length, originalScale, "milli")
-    const inch = tryConvert(length, originalScale, "inch")
-    const feet = tryConvert(length, originalScale, "feet")
-    const yard = tryConvert(length, originalScale, "yard")
-    const mile = tryConvert(length, originalScale, "mile")
-    const sun = tryConvert(length, originalScale, "sun")
-    const shaku = tryConvert(length, originalScale, "shaku")
-    const ken = tryConvert(length, originalScale, "ken")
-    const cho = tryConvert(length, originalScale, "cho")
-    const ri = tryConvert(length, originalScale, "ri")
-    const kairi = tryConvert(length, originalScale, "kairi")
-    const fuji = tryConvert(length, originalScale, "fuji")
-    const everest = tryConvert(length, originalScale, "everest")
-    const tokyoLondon = tryConvert(length, originalScale, "tokyoLondon")    
-    const equator = tryConvert(length, originalScale, "equator")
-    const earthOrbit = tryConvert(length, originalScale, "earthOrbit")
-    const lightSec = tryConvert(length, originalScale, "lightSec")
-    const lightYear = tryConvert(length, originalScale, "lightYear")
+    const kilo = tryConvert(lengthStr, originalScale, "kilo")
+    const meter = tryConvert(lengthStr, originalScale, "meter")
+    const centi = tryConvert(lengthStr, originalScale, "centi")
+    const milli = tryConvert(lengthStr, originalScale, "milli")
+    const inch = tryConvert(lengthStr, originalScale, "inch")
+    const feet = tryConvert(lengthStr, originalScale, "feet")
+    const yard = tryConvert(lengthStr, originalScale, "yard")
+    const mile = tryConvert(lengthStr, originalScale, "mile")
+    const sun = tryConvert(lengthStr, originalScale, "sun")
+    const shaku = tryConvert(lengthStr, originalScale, "shaku")
+    const ken = tryConvert(lengthStr, originalScale, "ken")
+    const cho = tryConvert(lengthStr, originalScale, "cho")
+    const ri = tryConvert(lengthStr, originalScale, "ri")
+    const kairi = tryConvert(lengthStr, originalScale, "kairi")
+    const fuji = tryConvert(lengthStr, originalScale, "fuji")
+    const everest = tryConvert(lengthStr, originalScale, "everest")
+    const tokyoLondon = tryConvert(lengthStr, originalScale, "tokyoLondon")    
+    const equator = tryConvert(lengthStr, originalScale, "equator")
+    const earthOrbit = tryConvert(lengthStr, originalScale, "earthOrbit")
+    const lightSec = tryConvert(lengthStr, originalScale, "lightSec")
+    const lightYear = tryConvert(lengthStr, originalScale, "lightYear")
 
     return (
       <div>
@@ -206,45 +235,46 @@ class LengthCalculator extends React.Component {
       </h5>
       <div className="uBody row">
         <div className="col s12 m4">
+
           <LengthInput
               scale="kilo"
-              length={kilo}
+              lengthN={kilo}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
           <LengthInput
               scale="meter"
-              length={meter}
+              lengthN={meter}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
           <LengthInput
               scale="centi"
-              length={centi}
+              lengthN={centi}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
           <LengthInput
               scale="milli"
-              length={milli}
+              lengthN={milli}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />              
           <LengthInput
               scale="inch"
-              length={inch}
+              lengthN={inch}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
           <LengthInput
               scale="feet"
-              length={feet}
+              lengthN={feet}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
           <LengthInput
               scale="yard"
-              length={yard}
+              lengthN={yard}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
@@ -253,43 +283,43 @@ class LengthCalculator extends React.Component {
         <div className="col s12 m4">
             <LengthInput
               scale="mile"
-              length={mile}
+              lengthN={mile}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="sun"
-              length={sun}
+              lengthN={sun}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="shaku"
-              length={shaku}
+              lengthN={shaku}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="ken"
-              length={ken}
+              lengthN={ken}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="cho"
-              length={cho}
+              lengthN={cho}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />                           
             <LengthInput
               scale="ri"
-              length={ri}
+              lengthN={ri}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="kairi"
-              length={kairi}
+              lengthN={kairi}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
@@ -299,46 +329,47 @@ class LengthCalculator extends React.Component {
             
             <LengthInput
               scale="fuji"
-              length={fuji}
+              lengthN={fuji}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="everest"
-              length={everest}
+              lengthN={everest}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
               scale="tokyoLondon"
-              length={tokyoLondon}
+              lengthN={tokyoLondon}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />                               
             <LengthInput
               scale="equator"
-              length={equator}
+              lengthN={equator}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onLengthChange={this.handleChange} />
             <LengthInput
-                scale="lightSec"
-                length={lightSec}
-                onClear={this.clear}
-                onAlert={this.alertMessage}
-                onLengthChange={this.handleChange} />
+              scale="lightSec"
+              lengthN={lightSec}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
             <LengthInput
-                scale="earthOrbit"
-                length={earthOrbit}
-                onClear={this.clear}
-                onAlert={this.alertMessage}
-                onLengthChange={this.handleChange} />
+              scale="earthOrbit"
+              lengthN={earthOrbit}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
             <LengthInput
-                scale="lightYear"
-                length={lightYear}
-                onClear={this.clear}
-                onAlert={this.alertMessage}
-                onLengthChange={this.handleChange} />
+              scale="lightYear"
+              lengthN={lightYear}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onLengthChange={this.handleChange} />
+
         </div>
         <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
       </div>

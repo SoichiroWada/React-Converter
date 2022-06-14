@@ -47,12 +47,13 @@ const scaleNames2 = {
   lightYear: '（光年）',
 };
 
-function Length (props) {
+function LengthInput (props) {
 
-  const length = props.length;
+  const lengthN = props.lengthN;
   const scale = props.scale;
   
   function handleChange(e) {
+    console.log('e.target.value', e.target.value, typeof(e.target.value));
     props.onLengthChange(e.target.value, scale);
   }
 
@@ -74,10 +75,10 @@ function Length (props) {
     return (
       <fieldset className="rain">
         <legend><span id="text">Enter value in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
-        <input id="input" value={length} onChange={handleChange} onKeyDown={handleKey}/>
+        <input id="input" value={lengthN} onChange={handleChange} onKeyDown={handleKey}/>
       </fieldset>
   )
 }
 
-export default Length
+export default LengthInput
 
