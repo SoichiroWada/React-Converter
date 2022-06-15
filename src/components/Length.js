@@ -1,6 +1,7 @@
 import React from 'react';
 import LengthInput from './LengthInput';
 
+//below criterion value is that 1 that scale equals what meter
 const valuesInMeters = {
   kilo:1000,
   meter:1,

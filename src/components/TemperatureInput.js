@@ -19,7 +19,7 @@ const Temperature = (props) => {
     return (
       <fieldset className="rain">
         <legend>Enter temperature in {scaleNames[scale]}</legend>
-        <input id="input" value={temperature} onChange={handleChange} />
+        <input id="input" value={temperature} onChange={handleChange} autoComplete="off" />
       </fieldset>
     );
 }
