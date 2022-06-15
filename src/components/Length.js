@@ -176,10 +176,10 @@ class LengthCalculator extends React.Component {
 
     return (
       <div>
-      <h5 id="h5">Length Converter<span id="h5j">（長さの変換）</span><br id="break"></br>
-      <span id="ctl" style={bStyle}>Delete key and Space key on keyboard to clear</span>
-      <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
-      </h5>
+        <h5 id="h5">Length Converter<span id="h5j">（長さの変換）</span><br id="break"></br>
+          <span id="ctl" style={bStyle}>Delete key and Space key on keyboard to clear</span>
+          <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
+        </h5>
       <div className="uBody row">
         <div className="col s12 m4">
 

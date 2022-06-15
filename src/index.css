@@ -39,7 +39,7 @@ legend{
 }
 #navbar{
   color:white;
-  background-color:#18929b;
+  background-color:#144b5e;
 }
 #input{
   text-align:right;
@@ -55,16 +55,14 @@ legend{
   color:blue;
   font-size:16px;
 }
-#h5{
-  margin-top:20px;
-}
 #ctl{
   font-size:0.8em;
   margin-left:2.0em;
 }
 #h5{
+  margin-top:10px;
   margin-left:2.0em;
-  font-size:1.2em;
+  font-size:1.0em;
 }
 #alertM{
   color:yellow;
@@ -77,6 +75,14 @@ legend{
 #links{
   margin-right:1%;
 }
+
+.active{
+  background-color: rgb(12, 40, 59);
+}
+.hover{
+  background-color: rgb(192, 200, 32);
+}
+
 
 @media screen and (max-width: 3600px) {
   #h5j {

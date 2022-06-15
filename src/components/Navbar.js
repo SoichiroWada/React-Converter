@@ -12,7 +12,7 @@ const Navbar = (props) => {
             </div>
             <div className="right" id="links">
                 <ul className="hide-on-med-and-down">
-                    <li><NavLink to="/">Length</NavLink></li>
+                    <li><NavLink to="/length">Length</NavLink></li>
                     <li><NavLink to="/temperature">Temperature</NavLink></li>
                 </ul>
             </div>
