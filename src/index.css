@@ -11,6 +11,7 @@ legend{
   margin-top:1.0em;
   margin-left:1.0em;
   margin-right:1.0em;
+  margin-bottom:0.3em;
 }
 
 .rain{
@@ -31,7 +32,8 @@ legend{
 #btn-leng{
   margin-top:1.0em;
   margin-left:1.0em;
-  font-size:0.8em;
+  font-size:0.9em;
+  width:30em;
 }
 #btn-temp{
   margin-top:1.0em;
@@ -75,11 +77,23 @@ legend{
 #links{
   margin-right:1%;
 }
-
 .active{
   background-color: rgb(12, 34, 95);
 }
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
 
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 100px;
+  margin: 10px;
+  margin-top:0px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
 
 @media screen and (max-width: 3600px) {
   #h5j {

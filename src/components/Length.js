@@ -150,7 +150,6 @@ class LengthCalculator extends React.Component {
     const originalScale = this.state.originalScale;
     const lengthStr = this.state.lengthStr;
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
-    const bStyle = this.state.alertMessage === "OFF" ? {display: "inline"} : {display:"none"};
 
     const kilo = tryConvert(lengthStr, originalScale, "kilo")
     const meter = tryConvert(lengthStr, originalScale, "meter")
@@ -176,8 +175,7 @@ class LengthCalculator extends React.Component {
 
     return (
       <div>
-        <h5 id="h5">Length Converter<span id="h5j">（長さの変換）</span><br id="break"></br>
-          <span id="ctl" style={bStyle}>Delete key and Space key on keyboard to clear</span>
+        <h5 id="h5">
           <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
         </h5>
       <div className="uBody row">
@@ -318,8 +316,11 @@ class LengthCalculator extends React.Component {
               onLengthChange={this.handleChange} />
 
         </div>
-        <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
       </div>
+
+        <div className='flex-container'>
+          <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
+        </div>
       </div>
     );
   }

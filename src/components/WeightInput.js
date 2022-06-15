@@ -1,55 +1,62 @@
 import React from 'react';
 
 const scaleNames = {
-  kilo: 'Kilo Meter',
-  meter: 'Meter',
-  centi: 'Centi Meter',
-  milli: 'Milli Meter',
-  inch: 'inch',
-  feet: 'Feet',  
-  yard:'Yard',
-  mile: 'Mile',
-  sun: 'Sun',
-  shaku: 'Shaku',
-  ken: 'Ken',
-  cho: 'Cho',  
-  ri: 'Ri',
-  kairi: 'Kairi',  
-  fuji:'Mt. Fuji',
-  everest: 'Mt. Everest',
-  tokyoLondon: 'Tokyo - London',
-  equator: 'Equator',
-  lightSec: 'Light Second',
-  earthOrbit: 'Earth Orbit',
-  lightYear: 'Light Year',  
+    milligram:'Milli Gram',
+    gram:'Gram',
+    kilogram:'Kilo Gram',
+    ton:'Ton',
+    avoirdupoisGrain:'Grain',
+    avoirdupoisDram:'Dram',
+    avoirdupoisOunce:'Ounce',
+    avoirdupoisPound:'Pound',
+    avoirdupoisStone:'Stone',
+    avoirdupoisUShundredweight:'US hundred weight',
+    avoirdupoisLonghundredweight:'Long hundred weight',
+    avoirdupoisShortTon:'Short Ton',
+    avoirdupoisLongTon:'Long Ton',
+    troyGrain:'Troy Grain',
+    troyPennyweight:'Troy Pennyweight',
+    troyOunce:'Troy Ounce',
+    troyPound:'Troy Pound',
+    monme:'Monme',
+    ryo:'Ryo',
+    kin:'Kin',
+    kan:'Kan',
+    sumoWrestler:'Sumo Wrestler',
+    africanElephant:'African Elephant',
+    blueWhale:'Blue Whale',
 };
+
 const scaleNames2 = {
-  kilo: '（キロメートル）',
-  meter: '（メートル）',
-  centi: '（センチメートル）',
-  milli: '（ミリメートル）',
-  inch: '（インチ）',
-  feet: '（フィート）',  
-  yard:'（ヤード）',    
-  mile: '（マイル）',
-  sun: '（寸）',
-  shaku: '（尺）',
-  ken:'（間）',  
-  cho:'（町）',
-  ri: '（里）',
-  kairi: '（海里）',
-  fuji:'（富士山）',
-  everest:'（エベレスト）',
-  tokyoLondon: '（東京－ロンドン間）',
-  equator: '（地球の赤道）',
-  lightSec: '（光秒）',
-  earthOrbit: '（地球の太陽周回軌道）',
-  lightYear: '（光年）',
+    milligram:'（ミリグラム）',
+    gram:'（グラム）',
+    kilogram:'（キログラム）',
+    ton:'（トン）',
+    avoirdupoisGrain:'（グレーン）',
+    avoirdupoisDram:'（ドラム）',
+    avoirdupoisOunce:'（オンス）',
+    avoirdupoisPound:'（ポンド）',
+    avoirdupoisStone:'（ストーン）',
+    avoirdupoisUShundredweight:'（USハンドレッドウェイト - cwt）',
+    avoirdupoisLonghundredweight:'（UKハンドレッドウェイト - cwt）',
+    avoirdupoisShortTon:'（常衡USトン）',
+    avoirdupoisLongTon:'（常衡UKトン）',
+    troyGrain:'（トロイ　グレーン）',
+    troyPennyweight:'（トロイ　ペニーウェイト）',
+    troyOunce:'（トロイ　オンス）',
+    troyPound:'（トロイ　ポンド）',
+    monme:'（匁）',
+    ryo:'（両）',
+    kin:'（斤）',
+    kan:'（貫）',
+    sumoWrestler:'（相撲力士）',
+    africanElephant:'（アフリカ象）',
+    blueWhale:'（しろながす鯨）',
 };
 
 function WeightInput (props) {
 
-  const lengthN = props.lengthN;
+  const weightN = props.weightN;
   const scale = props.scale;
   
   function handleChange(e) {
@@ -74,8 +81,8 @@ function WeightInput (props) {
 
     return (
       <fieldset className="rain">
-        <legend><span id="text">Scale in </span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
-        <input id="input" value={lengthN} onChange={handleChange} onKeyDown={handleKey}/>
+        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+        <input id="input" value={weightN} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
   )
 }

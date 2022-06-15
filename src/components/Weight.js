@@ -1,41 +1,43 @@
 import React from 'react';
 import WeightInput from './WeightInput';
 
-const valuesInMeters = {
+const valuesInWeight = {
   milligram:1*(10**-6),
   gram:1*(10**-3),
   kilogram:1,
-  grain:64.79891*(10**-6),
-  dram:1.7718451953125*(10**-3),
-  ounce:28.349523125*(10**-3),
-  feet:0.3048,
-  yard:0.9144,
-  mile:9999.9999,
-  sun:0.030303030303030303030303,
-  shaku:0.30303030303030303030303,
-  ken:1.818181818181818181818181818,
-  cho:109.090909090909090909090,
-  ri:3927.272727272727272727272,
-  kairi:1852,
-  fuji:3776,
-  everest:8848.86,
-  tokyoLondon:9553000,
-  equator:40075017,
-  lightSec:299792458,
-  earthOrbit:149597870000,
-  lightYear:9460730472580800,
+  ton:1000,
+  avoirdupoisGrain:64.79891*(10**-6),
+  avoirdupoisDram:1.7718451953125*(10**-3),
+  avoirdupoisOunce:28.349523125*(10**-3),
+  avoirdupoisPound:0.45359237,
+  avoirdupoisStone:6.35029318,
+  avoirdupoisUShundredweight:45.359237,
+  avoirdupoisLonghundredweight:50.80234544,
+  avoirdupoisShortTon:907.18474,
+  avoirdupoisLongTon:1016.0469088,
+  troyGrain:64.79891*(10**-6),
+  troyPennyweight:1.55517384*(10**-3),
+  troyOunce:31.1034768*(10**-3),
+  troyPound:373.2417216*(10**-3),
+  monme:3.75*(10**-3),
+  ryo:37.5*(10**-3),
+  kin:600*(10**-3),
+  kan:3.75,
+  sumoWrestler:160,
+  africanElephant:6000,
+  blueWhale:190000,
 }
 
-function tryConvert(lengthStr, originalScale, targetScale) {
+function tryConvert(weightStr, originalScale, targetScale) {
   if (originalScale === targetScale){
-    return lengthStr;
+    return weightStr;
   }
 
-  const input = parseFloat(lengthStr);
+  const input = parseFloat(weightStr);
   if (Number.isNaN(input)) {
     return '';
   }
-  const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
+  const ratio = valuesInWeight[originalScale]/valuesInWeight[targetScale];
   const output = input*ratio;
   const string = output.toString(10);
   const stringArray = string.split('');
@@ -66,8 +68,9 @@ function tryConvert(lengthStr, originalScale, targetScale) {
       return converted;
     }
   }
+  console.log('output', output)
   const rounded = Math.round(output * 1000000000) / 1000000000;
-  return rounded.toString(10);
+  return rounded
 
 }
 
@@ -121,18 +124,18 @@ class WeightCalculator extends React.Component {
 
     this.state = { 
       originalScale:'',
-      lengthStr:'',
+      weightStr:'',
       alertMessage:'OFF',
     };
   }
 
-  handleChange(lengthStr, scale) {
-    this.setState({originalScale: scale, lengthStr:lengthStr});
+  handleChange(weightStr, scale) {
+    this.setState({originalScale: scale, weightStr:weightStr});
   }
 
   clear(){
     console.clear();
-    this.setState({ originalScale:'', lengthStr:'', alertMessage: 'OFF'});
+    this.setState({ originalScale:'', weightStr:'', alertMessage: 'OFF'});
   }
   alertMessage(arr){
     if (arr === 229){
@@ -149,178 +152,201 @@ class WeightCalculator extends React.Component {
   render() {
     
     const originalScale = this.state.originalScale;
-    const lengthStr = this.state.lengthStr;
+    const weightStr = this.state.weightStr;
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
-    const bStyle = this.state.alertMessage === "OFF" ? {display: "inline"} : {display:"none"};
 
-    const kilo = tryConvert(lengthStr, originalScale, "kilo")
-    const meter = tryConvert(lengthStr, originalScale, "meter")
-    const centi = tryConvert(lengthStr, originalScale, "centi")
-    const milli = tryConvert(lengthStr, originalScale, "milli")
-    const inch = tryConvert(lengthStr, originalScale, "inch")
-    const feet = tryConvert(lengthStr, originalScale, "feet")
-    const yard = tryConvert(lengthStr, originalScale, "yard")
-    const mile = tryConvert(lengthStr, originalScale, "mile")
-    const sun = tryConvert(lengthStr, originalScale, "sun")
-    const shaku = tryConvert(lengthStr, originalScale, "shaku")
-    const ken = tryConvert(lengthStr, originalScale, "ken")
-    const cho = tryConvert(lengthStr, originalScale, "cho")
-    const ri = tryConvert(lengthStr, originalScale, "ri")
-    const kairi = tryConvert(lengthStr, originalScale, "kairi")
-    const fuji = tryConvert(lengthStr, originalScale, "fuji")
-    const everest = tryConvert(lengthStr, originalScale, "everest")
-    const tokyoLondon = tryConvert(lengthStr, originalScale, "tokyoLondon")    
-    const equator = tryConvert(lengthStr, originalScale, "equator")
-    const earthOrbit = tryConvert(lengthStr, originalScale, "earthOrbit")
-    const lightSec = tryConvert(lengthStr, originalScale, "lightSec")
-    const lightYear = tryConvert(lengthStr, originalScale, "lightYear")
+    const milligram = tryConvert(weightStr, originalScale, "milligram")
+    const gram = tryConvert(weightStr, originalScale, "gram")
+    const kilogram = tryConvert(weightStr, originalScale, "kilogram")
+    const ton = tryConvert(weightStr, originalScale, "ton")
+    const avoirdupoisGrain = tryConvert(weightStr, originalScale, "avoirdupoisGrain")
+    const avoirdupoisDram = tryConvert(weightStr, originalScale, "avoirdupoisDram")
+    const avoirdupoisOunce = tryConvert(weightStr, originalScale, "avoirdupoisOunce")
+    const avoirdupoisPound = tryConvert(weightStr, originalScale, "avoirdupoisPound")    
+    const avoirdupoisStone = tryConvert(weightStr, originalScale, "avoirdupoisStone")
+    const avoirdupoisUShundredweight = tryConvert(weightStr, originalScale, "avoirdupoisUShundredweight")
+    const avoirdupoisLonghundredweight = tryConvert(weightStr, originalScale, "avoirdupoisLonghundredweight")
+    const avoirdupoisShortTon = tryConvert(weightStr, originalScale, "avoirdupoisShortTon")
+    const avoirdupoisLongTon = tryConvert(weightStr, originalScale, "avoirdupoisLongTon")
+    const troyGrain = tryConvert(weightStr, originalScale, "troyGrain")
+    const troyPennyweight = tryConvert(weightStr, originalScale, "troyPennyweight")
+    const troyOunce = tryConvert(weightStr, originalScale, "troyOunce")
+    const troyPound = tryConvert(weightStr, originalScale, "troyPound")
+    const monme = tryConvert(weightStr, originalScale, "monme")
+    const ryo = tryConvert(weightStr, originalScale, "ryo")
+    const kin = tryConvert(weightStr, originalScale, "kin")
+    const kan = tryConvert(weightStr, originalScale, "kan")
+    const sumoWrestler = tryConvert(weightStr, originalScale, "sumoWrestler")    
+    const africanElephant = tryConvert(weightStr, originalScale, "africanElephant")
+    const blueWhale = tryConvert(weightStr, originalScale, "blueWhale")
 
     return (
       <div>
-        <h5 id="h5">Weight Converter<span id="h5j">（重さの変換）</span><br id="break"></br>
-          <span id="ctl" style={bStyle}>Delete key and Space key on keyboard to clear</span>
+
+        <h5 id="h5">
           <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
         </h5>
-      <div className="uBody row">
-        <div className="col s12 m4">
-
-          <WeightInput
-              scale="kilo"
-              lengthN={kilo}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-          <WeightInput
-              scale="meter"
-              lengthN={meter}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-          <WeightInput
-              scale="centi"
-              lengthN={centi}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-          <WeightInput
-              scale="milli"
-              lengthN={milli}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />              
-          <WeightInput
-              scale="inch"
-              lengthN={inch}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-          <WeightInput
-              scale="feet"
-              lengthN={feet}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-          <WeightInput
-              scale="yard"
-              lengthN={yard}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-        </div>
-
-        <div className="col s12 m4">
-            <WeightInput
-              scale="mile"
-              lengthN={mile}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="sun"
-              lengthN={sun}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="shaku"
-              lengthN={shaku}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="ken"
-              lengthN={ken}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="cho"
-              lengthN={cho}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />                           
-            <WeightInput
-              scale="ri"
-              lengthN={ri}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="kairi"
-              lengthN={kairi}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-        </div>
-
-        <div className="col s12 m4">
             
-            <WeightInput
-              scale="fuji"
-              lengthN={fuji}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="everest"
-              lengthN={everest}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="tokyoLondon"
-              lengthN={tokyoLondon}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />                               
-            <WeightInput
-              scale="equator"
-              lengthN={equator}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="lightSec"
-              lengthN={lightSec}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="earthOrbit"
-              lengthN={earthOrbit}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
-            <WeightInput
-              scale="lightYear"
-              lengthN={lightYear}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onLengthChange={this.handleChange} />
+        <div className="uBody row">
+            <div className="col s12 m4">
 
+                <WeightInput
+                    scale="milligram"
+                    weightN={milligram}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="gram"
+                    weightN={gram}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />         
+                <WeightInput
+                    scale="kilogram"
+                    weightN={kilogram}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="ton"
+                    weightN={ton}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />                    
+                <WeightInput
+                    scale="avoirdupoisGrain"
+                    weightN={avoirdupoisGrain}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisDram"
+                    weightN={avoirdupoisDram}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisOunce"
+                    weightN={avoirdupoisOunce}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisPound"
+                    weightN={avoirdupoisPound}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />              
+
+            </div>
+
+            <div className="col s12 m4">
+                <WeightInput
+                    scale="avoirdupoisStone"
+                    weightN={avoirdupoisStone}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisUShundredweight"
+                    weightN={avoirdupoisUShundredweight}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisLonghundredweight"
+                    weightN={avoirdupoisLonghundredweight}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="avoirdupoisShortTon"
+                    weightN={avoirdupoisShortTon}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />            
+                <WeightInput
+                    scale="avoirdupoisLongTon"
+                    weightN={avoirdupoisLongTon}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="troyGrain"
+                    weightN={troyGrain}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="troyPennyweight"
+                    weightN={troyPennyweight}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="troyOunce"
+                    weightN={troyOunce}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />                      
+            </div>
+
+            <div className="col s12 m4">
+                <WeightInput
+                    scale="troyPound"
+                    weightN={troyPound}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />                 
+                <WeightInput
+                    scale="monme"
+                    weightN={monme}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="ryo"
+                    weightN={ryo}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="kin"
+                    weightN={kin}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="kan"
+                    weightN={kan}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="sumoWrestler"
+                    weightN={sumoWrestler}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />                               
+                <WeightInput
+                    scale="africanElephant"
+                    weightN={africanElephant}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+                <WeightInput
+                    scale="blueWhale"
+                    weightN={blueWhale}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onLengthChange={this.handleChange} />
+
+            </div>
         </div>
-        <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
-      </div>
+        <div className='flex-container'>
+            <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
+        </div>
       </div>
     );
   }
