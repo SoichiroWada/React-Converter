@@ -4,7 +4,7 @@ const scaleNames = {
     milligram:'Milli Gram',
     gram:'Gram',
     kilogram:'Kilo Gram',
-    ton:'Ton',
+    ton:'Tonne',
     avoirdupoisGrain:'Grain',
     avoirdupoisDram:'Dram',
     avoirdupoisOunce:'Ounce',
