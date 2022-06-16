@@ -26,7 +26,9 @@ const valuesInMeters = {
   lightYear:9460730472580800,
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
 function tryConvert(lengthStr, originalScale, targetScale) {
+  console.log('%%%%%%%%%%%%%%%%%%START%%%%%%%%%%%%%%%%%%%%%%%')
   if (originalScale === targetScale){
     return lengthStr;
   }
@@ -37,13 +39,53 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   }
   const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
   const output = input*ratio;
+  console.log('output', output)
   const string = output.toString(10);
   const stringArray = string.split('');
 
-  const testResultForFourZeros = consectiveZeroFinder(stringArray, 4)
-  const testResultForSevenZeros = consectiveZeroFinder(stringArray, 7)
+  const testResultForFourZeros = consectiveZeroUnderDotFinder(stringArray, 4)
+  const testResultForSevenZeros = consectiveZeroUnderDotFinder(stringArray, 7)
+  console.log('testResultForSevenZeros#####', testResultForSevenZeros)
+  const testResultForNineNines = consectiveNineFinder(stringArray)
+  console.log('testResultForNineNines★★★', testResultForNineNines)
 
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
+  console.log('dotPosition', dotPosition)
+
+  if (testResultForNineNines) {
+    const realLastNinePosition = testResultForNineNines + 1;
+    console.log('realLastNinePosition', realLastNinePosition)
+
+    if (dotPosition) {
+      if (dotPosition < realLastNinePosition) {
+        const differenceBetweenDotAndlastNine = realLastNinePosition - dotPosition;
+        console.log('differenceBetweenDotAndlastNine', differenceBetweenDotAndlastNine)
+
+        const valueForMathRound = differenceBetweenDotAndlastNine;
+        console.log('valueForMathRound', valueForMathRound)
+        const adjusted = Math.round(output*(10**valueForMathRound))/(10**valueForMathRound)
+        console.log('output', output)
+        console.log('adjusted', adjusted)
+        return adjusted
+      }
+      else if (realLastNinePosition < dotPosition) {
+        const differenceBetweenDotAndlastNine = dotPosition - realLastNinePosition;
+        console.log('differenceBetweenDotAndlastNine', differenceBetweenDotAndlastNine)
+
+        const valueForMathRound = differenceBetweenDotAndlastNine;
+        console.log('valueForMathRound', valueForMathRound)
+        const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
+        console.log('output', output)
+        console.log('adjusted', adjusted)
+        return adjusted
+      }
+    } else {
+      const difference = stringArray.length - realLastNinePosition;
+      const valueForMathRound = difference;
+      const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
+      return adjusted;
+    }
+  }
 
   // zero continues after dot for 4 zeros
   if (dotPosition && output>1 && testResultForFourZeros) {
@@ -54,12 +96,21 @@ function tryConvert(lengthStr, originalScale, targetScale) {
       const converted = Number(joined);
       return converted;
     }
-  } 
+  }
+  
   //zero continues 7 times after dot even if the number is zero dot ...
-  else if (dotPosition && testResultForSevenZeros) {
+  if (dotPosition && testResultForSevenZeros) {
     const zeroStartingPositionForSevenZeros = testResultForSevenZeros-5;
+    console.log('zeroStartingPositionForSevenZeros', zeroStartingPositionForSevenZeros);
     const checkResult = betweenDotAndStartingZeroFinder(stringArray, dotPosition, zeroStartingPositionForSevenZeros);
-    if (dotPosition < zeroStartingPositionForSevenZeros && checkResult === "otherNumber") {
+    
+    if (output < 1 && dotPosition < zeroStartingPositionForSevenZeros && checkResult === "otherNumber") {
+      const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForSevenZeros-1);
+      const joined = slicedStringToArray.join('');
+      const converted = Number(joined);
+      return converted;
+    } 
+    else if (output > 1 && dotPosition < zeroStartingPositionForSevenZeros) {
       const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForSevenZeros-1);
       const joined = slicedStringToArray.join('');
       const converted = Number(joined);
@@ -67,14 +118,44 @@ function tryConvert(lengthStr, originalScale, targetScale) {
     }
   }
   const rounded = Math.round(output * 1000000000) / 1000000000;
-  return rounded.toString(10);
-
+  return rounded
+  // return output;
 }
 
-function consectiveZeroFinder (array, zeroCount) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function consectiveNineFinder (array) {
   let counter = 0;
+  let dotCounter = 0;
   for (let i = 0; i < array.length; i++) {
-    if (array[i] === '0') {
+    if (array[i] === '9') {
+      counter++;
+    } else if (array[i] === '.') {
+      dotCounter++;
+    } else {
+      counter = 0;
+    }
+    if (counter === 9) {
+      if (dotCounter > 1){
+        return "Invalid Input";
+      } else {
+        return i;
+      }
+    }
+  }
+  return false;
+}
+
+function consectiveZeroUnderDotFinder (array, zeroCount) {
+  let counter = 0;
+  let dotCounter = 0;
+  let inCounting = false;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === '.') {
+      dotCounter++;
+      dotCounter === 1 ? inCounting = true : inCounting = false; 
+    }
+    if (inCounting && array[i] === '0') {
       counter++;
     } else {
       counter = 0;
@@ -85,6 +166,7 @@ function consectiveZeroFinder (array, zeroCount) {
   }
   return false;
 }
+
 
 function dotPositionFinder (array) {
   for (let i = 0; i < array.length; i++) {

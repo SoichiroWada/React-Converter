@@ -27,6 +27,7 @@ const valuesInWeight = {
   africanElephant:6000,
   blueWhale:190000,
 }
+///////////////////////////////////////////////////////////////////////////////////
 
 function tryConvert(weightStr, originalScale, targetScale) {
   console.log('%%%%%%%%%%%%%%%%%%START%%%%%%%%%%%%%%%%%%%%%%%')
@@ -121,8 +122,8 @@ function tryConvert(weightStr, originalScale, targetScale) {
   const rounded = Math.round(output * 1000000000) / 1000000000;
   return rounded
   // return output;
-
 }
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function consectiveNineFinder (array) {
   let counter = 0;
