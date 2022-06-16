@@ -44,8 +44,54 @@ function tryConvert(weightStr, originalScale, targetScale) {
 
   const testResultForFourZeros = consectiveZeroFinder(stringArray, 4)
   const testResultForSevenZeros = consectiveZeroFinder(stringArray, 7)
+  const testResultForNineNines = consectiveNineFinder(stringArray)
+  console.log('testResultForNineNines★★★', testResultForNineNines)
 
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
+  console.log('dotPosition', dotPosition)
+
+  if (testResultForNineNines) {
+
+    const realLastNinePosition = testResultForNineNines + 1;
+    console.log('realLastNinePosition', realLastNinePosition)
+
+    if (realLastNinePosition > dotPosition) {
+      const differenceBetweenDotAndlastNine = realLastNinePosition - dotPosition;
+
+      if (differenceBetweenDotAndlastNine > 9) {
+        const nineStartPosition = realLastNinePosition - 9;
+        console.log('nineStartPosition', nineStartPosition)
+        const valueForMathRound = nineStartPosition - dotPosition;
+        console.log('valueForMathRound', valueForMathRound)
+        const adjusted = Math.round(output*(10**valueForMathRound))/(10**valueForMathRound)
+        console.log('output', output)
+        console.log('adjusted', adjusted)
+        return adjusted
+      }
+      else if (differenceBetweenDotAndlastNine < 9) {
+        const nineStartPosition = realLastNinePosition - 9;
+        const valueForMathRound = dotPosition - nineStartPosition;
+        const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
+        console.log('output', output)
+        console.log('adjusted', adjusted)
+        return adjusted
+      } 
+      else {
+        const adjusted = Math.round(output)
+        return adjusted;
+      }
+    }
+    else if (realLastNinePosition < dotPosition) {
+      const nineStartPosition = realLastNinePosition - 8;
+      console.log('nineStartPosition', nineStartPosition)
+      const valueForMathRound = dotPosition - nineStartPosition;
+      console.log('valueForMathRound', valueForMathRound)
+      const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
+      console.log('output', output)
+      console.log('adjusted', adjusted)
+      return adjusted
+    }
+  }
 
   // zero continues after dot for 4 zeros
   if (dotPosition && output>1 && testResultForFourZeros) {
@@ -72,6 +118,28 @@ function tryConvert(weightStr, originalScale, targetScale) {
   const rounded = Math.round(output * 1000000000) / 1000000000;
   return rounded
 
+}
+
+function consectiveNineFinder (array) {
+  let counter = 0;
+  let dotCounter = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === '9') {
+      counter++;
+    } else if (array[i] === '.') {
+      dotCounter++;
+    } else {
+      counter = 0;
+    }
+    if (counter === 9) {
+      if (dotCounter > 1){
+        return "Invalid Input";
+      } else {
+        return i;
+      }
+    }
+  }
+  return false;
 }
 
 function consectiveZeroFinder (array, zeroCount) {
