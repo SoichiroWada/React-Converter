@@ -42,9 +42,8 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   const string = output.toString(10);
   const stringArray = string.split('');
 
-  const testResultForFourZeros = consectiveZeroUnderDotFinder(stringArray, 4)
-  const testResultForSevenZeros = consectiveZeroUnderDotFinder(stringArray, 7)
-  console.log('testResultForSevenZeros####', testResultForSevenZeros)
+  const testResultForFourZeros = consectiveZerosUnderDotFinder(stringArray, 4)
+  console.log('testResultForFourZeros####', testResultForFourZeros)
   const testResultForNineNines = consectiveNineFinder(stringArray)
   console.log('testResultForNineNines★★★', testResultForNineNines)
 
@@ -87,35 +86,14 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   }
 
   // zero continues after dot for 4 zeros
-  if (dotPosition && output>1 && testResultForFourZeros) {
+  if (dotPosition && testResultForFourZeros) {
     const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
-    if (dotPosition < zeroStartingPositionForFourZeros) {
-      const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForFourZeros-1);
-      const joined = slicedStringToArray.join('');
-      const converted = Number(joined);
-      return converted;
-    }
+    const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForFourZeros-1);
+    const joined = slicedStringToArray.join('');
+    const converted = Number(joined);
+    return converted;
   }
   
-  //zero continues 7 times after dot even if the number is zero dot ...
-  if (dotPosition && testResultForSevenZeros) {
-    const zeroStartingPositionForSevenZeros = testResultForSevenZeros-5;
-    console.log('zeroStartingPositionForSevenZeros', zeroStartingPositionForSevenZeros);
-    const checkResult = betweenDotAndStartingZeroFinder(stringArray, dotPosition, zeroStartingPositionForSevenZeros);
-    
-    if (output < 1 && dotPosition < zeroStartingPositionForSevenZeros && checkResult === "otherNumber") {
-      const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForSevenZeros-1);
-      const joined = slicedStringToArray.join('');
-      const converted = Number(joined);
-      return converted;
-    } 
-    else if (output > 1 && dotPosition < zeroStartingPositionForSevenZeros) {
-      const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForSevenZeros-1);
-      const joined = slicedStringToArray.join('');
-      const converted = Number(joined);
-      return converted;
-    }
-  }
   const rounded = Math.round(output * 1000000000) / 1000000000;
   return rounded
   // return output;
@@ -143,25 +121,32 @@ function consectiveNineFinder (array) {
   return false;
 }
 
-function consectiveZeroUnderDotFinder (array, zeroCount) {
+
+function consectiveZerosUnderDotFinder (array, zeroCount) {
+  console.log('consectiveZerosUnderDotFinder is invoked!')
   let counter = 0;
   let dotCounter = 0;
-  let inCounting = false;
+  let underDotPosition = false;
+  const numbersStr = ['1','2','3','4','5','6','7','8','9'];
+  let leadingNotZeroNumberExists = false;
   for (let i = 0; i < array.length; i++) {
-    if (array[i] === '.') {
-      dotCounter++;
-      dotCounter === 1 ? inCounting = true : inCounting = false; 
-    }
-    if (inCounting && array[i] === '0') {
-      counter++;
-    } else {
-      counter = 0;
-    }
-    if (counter === zeroCount) {
-      return i;
-    }
+      if (array[i] === '.') {
+          dotCounter++;
+          dotCounter === 1 ? underDotPosition = true : underDotPosition = false; 
+      }
+      if (numbersStr.includes(array[i])) {
+          leadingNotZeroNumberExists = true;
+      }
+      if (leadingNotZeroNumberExists && underDotPosition && array[i] === '0') {
+          counter++;
+      } else {
+          counter = 0;
+      }
+      if (counter === zeroCount) {
+          return i;
+      }
   }
-  return false;
+return false;
 }
 
 
@@ -172,22 +157,6 @@ function dotPositionFinder (array) {
     }
   }
   return NaN;
-}
-
-function betweenDotAndStartingZeroFinder (array, dotStart, zeroStart) {
-  const slicedArrayForOtherNumberCheck = array.slice(dotStart, zeroStart-1);
-  let counter = 0;
-
-  for (let i = 0; i < slicedArrayForOtherNumberCheck.length; i++) {
-    if (slicedArrayForOtherNumberCheck[i] === '0') {
-      counter++;
-    }
-    if (counter === slicedArrayForOtherNumberCheck.length) {
-      return "allZero";
-    } else {
-      return "otherNumber"
-    }
-  }
 }
 
 class LengthCalculator extends React.Component {
