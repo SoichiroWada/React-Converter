@@ -47,7 +47,7 @@ function tryConvert(weightStr, originalScale, targetScale) {
 
   const testResultForFourZeros = consectiveZeroUnderDotFinder(stringArray, 4)
   const testResultForSevenZeros = consectiveZeroUnderDotFinder(stringArray, 7)
-  console.log('testResultForSevenZeros#####', testResultForSevenZeros)
+  console.log('testResultForSevenZeros####', testResultForSevenZeros)
   const testResultForNineNines = consectiveNineFinder(stringArray)
   console.log('testResultForNineNines★★★', testResultForNineNines)
 
@@ -123,7 +123,6 @@ function tryConvert(weightStr, originalScale, targetScale) {
   return rounded
   // return output;
 }
-  //////////////////////////////////////////////////////////////////////////////////////////////////
 
 function consectiveNineFinder (array) {
   let counter = 0;

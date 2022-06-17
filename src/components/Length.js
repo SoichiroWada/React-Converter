@@ -26,7 +26,6 @@ const valuesInMeters = {
   lightYear:9460730472580800,
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////
 function tryConvert(lengthStr, originalScale, targetScale) {
   console.log('%%%%%%%%%%%%%%%%%%START%%%%%%%%%%%%%%%%%%%%%%%')
   if (originalScale === targetScale){
@@ -45,7 +44,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
 
   const testResultForFourZeros = consectiveZeroUnderDotFinder(stringArray, 4)
   const testResultForSevenZeros = consectiveZeroUnderDotFinder(stringArray, 7)
-  console.log('testResultForSevenZeros#####', testResultForSevenZeros)
+  console.log('testResultForSevenZeros####', testResultForSevenZeros)
   const testResultForNineNines = consectiveNineFinder(stringArray)
   console.log('testResultForNineNines★★★', testResultForNineNines)
 
@@ -122,8 +121,6 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   // return output;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function consectiveNineFinder (array) {
   let counter = 0;
   let dotCounter = 0;
