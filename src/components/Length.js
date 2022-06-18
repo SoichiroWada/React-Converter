@@ -27,7 +27,7 @@ const valuesInMeters = {
 }
 
 function tryConvert(lengthStr, originalScale, targetScale) {
-  console.log('%%%%%%%%%%%%%%%%%%START%%%%%%%%%%%%%%%%%%%%%%%')
+
   if (originalScale === targetScale){
     return lengthStr;
   }
@@ -38,43 +38,27 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   }
   const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
   const output = input*ratio;
-  console.log('output', output)
   const string = output.toString(10);
   const stringArray = string.split('');
 
   const testResultForFourZeros = consectiveZerosUnderDotFinder(stringArray, 4)
-  console.log('testResultForFourZeros####', testResultForFourZeros)
   const testResultForNineNines = consectiveNineFinder(stringArray)
-  console.log('testResultForNineNines★★★', testResultForNineNines)
-
   const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
-  console.log('dotPosition', dotPosition)
 
   if (testResultForNineNines) {
     const realLastNinePosition = testResultForNineNines + 1;
-    console.log('realLastNinePosition', realLastNinePosition)
 
     if (dotPosition) {
       if (dotPosition < realLastNinePosition) {
         const differenceBetweenDotAndlastNine = realLastNinePosition - dotPosition;
-        console.log('differenceBetweenDotAndlastNine', differenceBetweenDotAndlastNine)
-
         const valueForMathRound = differenceBetweenDotAndlastNine;
-        console.log('valueForMathRound', valueForMathRound)
         const adjusted = Math.round(output*(10**valueForMathRound))/(10**valueForMathRound)
-        console.log('output', output)
-        console.log('adjusted', adjusted)
         return adjusted
       }
       else if (realLastNinePosition < dotPosition) {
         const differenceBetweenDotAndlastNine = dotPosition - realLastNinePosition;
-        console.log('differenceBetweenDotAndlastNine', differenceBetweenDotAndlastNine)
-
         const valueForMathRound = differenceBetweenDotAndlastNine;
-        console.log('valueForMathRound', valueForMathRound)
         const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
-        console.log('output', output)
-        console.log('adjusted', adjusted)
         return adjusted
       }
     } else {
@@ -123,7 +107,6 @@ function consectiveNineFinder (array) {
 
 
 function consectiveZerosUnderDotFinder (array, zeroCount) {
-  console.log('consectiveZerosUnderDotFinder is invoked!')
   let counter = 0;
   let dotCounter = 0;
   let underDotPosition = false;
