@@ -238,8 +238,8 @@ class WeightCalculator extends React.Component {
             <div className="col s12 m4">
 
                 <WeightInput
-                    scale="milligram"
-                    weightN={milligram}
+                    scale="kilogram"
+                    weightN={kilogram}
                     onClear={this.clear}
                     onAlert={this.alertMessage}
                     onLengthChange={this.handleChange} />
@@ -248,10 +248,10 @@ class WeightCalculator extends React.Component {
                     weightN={gram}
                     onClear={this.clear}
                     onAlert={this.alertMessage}
-                    onLengthChange={this.handleChange} />         
+                    onLengthChange={this.handleChange} />                         
                 <WeightInput
-                    scale="kilogram"
-                    weightN={kilogram}
+                    scale="milligram"
+                    weightN={milligram}
                     onClear={this.clear}
                     onAlert={this.alertMessage}
                     onLengthChange={this.handleChange} />
