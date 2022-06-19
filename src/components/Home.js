@@ -2,9 +2,9 @@ import React from 'react'
 
 const Home = (props) => {
   return (
-    <div>
-      <div className="container">
-        <h4 className="center">Home</h4>
+    <div className='box'>
+      <div>
+        <h4>Home</h4>
       </div>
     </div>
   )

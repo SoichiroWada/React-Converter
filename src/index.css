@@ -95,6 +95,18 @@ legend{
   font-size: 30px;
 }
 
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:640px;
+}
+.box > div {
+  text-align: center;
+  color: white;
+}
+
+
 @media screen and (max-width: 3600px) {
   #h5j {
     display: inline;
