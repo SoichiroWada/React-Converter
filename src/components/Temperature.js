@@ -53,7 +53,7 @@ class Calculator extends React.Component {
 
     return (
       <div className="uBody">
-        <h4>Temperature Converter（温度変換）</h4>
+        <h5>Temperature Converter（温度変換）</h5>
         <TemperatureInput
           scale="c"
           temperature={celsius}

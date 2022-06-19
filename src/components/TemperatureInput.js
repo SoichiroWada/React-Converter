@@ -19,37 +19,9 @@ const Temperature = (props) => {
     return (
       <fieldset className="rain">
         <legend>Enter temperature in {scaleNames[scale]}</legend>
-        <input id="input" value={temperature} onChange={handleChange} />
+        <input id="input" value={temperature} onChange={handleChange} autoComplete="off" />
       </fieldset>
     );
 }
 
 export default Temperature
-
-// class TemperatureInput extends React.Component {
-//     constructor(props) {
-//       super(props);
-//       this.handleChange = this.handleChange.bind(this);
-//     }
-  
-//     handleChange(e) {
-//       this.props.onTemperatureChange(e.target.value);
-//       // console.log('e.target.value:',e.target.value);
-//       // console.log('this.props in handleChange:',this.props);
-//     }
-  
-//     render() {
-//       const temperature = this.props.temperature;
-//       const scale = this.props.scale;
-//       // console.log('this.props in render:', this.props)
-//       return (
-//         <fieldset>
-//           <legend>Enter temperature in {scaleNames[scale]}{` ( ${scale.toUpperCase()} ) `}:</legend>
-//           <input value={temperature} onChange={this.handleChange} />
-//         </fieldset>
-//       );
-//     }
-//   }
-
-// export default TemperatureInput
-

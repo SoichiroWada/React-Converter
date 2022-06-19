@@ -4,14 +4,18 @@ import { Link, NavLink, withRouter } from 'react-router-dom'
 const Navbar = (props) => {
 
     return (
-        <nav id="navbar" className="nav-wrapper">
-            <div className="container">
+        <nav className="nav-wrapper row" id="navbar">
+            <div className="col s12">
                 <Link to={"/"}>
                     <div className="brand-logo" id="logo">React Converter</div>
                 </Link>
-                <ul className="right hide-on-med-and-down">
-                    <li><NavLink to="/">Length</NavLink></li>
-                    <li><NavLink to="/temperature">Temperature</NavLink></li>
+            </div>
+            <div className="right" id="links">
+                <ul className="hide-on-med-and-down">
+                    <li><NavLink to="/length">Length</NavLink></li>
+                    <li><NavLink to="/weight">Weight</NavLink></li>
+                    <li><NavLink to="/time">Time</NavLink></li>        
+                    <li><NavLink to="/temperature">Temperature</NavLink></li>                    
                 </ul>
             </div>
         </nav>
