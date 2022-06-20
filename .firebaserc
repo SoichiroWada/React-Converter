@@ -1,5 +1,6 @@
 {
   "projects": {
-    "Converter": "reactconverter"
+    "Converter": "reactconverter",
+    "default": "reactconverter"
   }
 }
