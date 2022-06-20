@@ -14,6 +14,7 @@ const Navbar = (props) => {
                 <ul className="hide-on-med-and-down">
                     <li><NavLink to="/length">Length</NavLink></li>
                     <li><NavLink to="/weight">Weight</NavLink></li>
+                    <li><NavLink to="/area">Area</NavLink></li>                    
                     <li><NavLink to="/time">Time</NavLink></li>        
                     <li><NavLink to="/temperature">Temperature</NavLink></li>                    
                 </ul>
