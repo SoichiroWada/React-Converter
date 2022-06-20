@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Home = (props) => {
-  const belowNavbarHeight = window.screen.height - 64;
+  const belowNavbarHeight = window.screen.height - 230;
   return (
     <div className='box' style={{height: belowNavbarHeight}}>
       <div>
