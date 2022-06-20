@@ -19,11 +19,11 @@ const scaleNames = {
     tsubo:'Tsubo',
     gou:'Gou',
     shaku:'Shaku',
-    shakutsubo:'Shaku tsubo',
-    jo:'Jo',
-    hojo:'Hojo',
+    Australia:'Australia',
+    Canada:'Canada',
     Japan:'Japan',
     USA:'USA',
+    China:'China',    
     LandOnEarth:'Land on Earth',
 }
 
@@ -46,11 +46,11 @@ const scaleNames2 = {
     tsubo:'（坪）',
     gou:'（合）',
     shaku:'（勺）',
-    shakutsubo:'（尺坪）',
-    jo:'（帖）',
-    hojo:'（方丈）',
+    Australia:'（オーストラリア）',
+    Canada:'（カナダ）',
     Japan:'（日本）',
     USA:'（アメリカ合衆国）',
+    China:'（中国）',
     LandOnEarth:'（地球の陸地）',
 }
 

@@ -9,7 +9,7 @@ const valuesInSquareMeter = {
     squareMilliMeter:0.000001,
     are:100,
     hectare:10000,
-    squareInch:0.00064516,
+    squareInch:0.0006451612903,
     squareFeet:0.09290304,
     squareYard:0.83612736,
     squarePerch:25.29285264,
@@ -21,11 +21,11 @@ const valuesInSquareMeter = {
     tsubo:3.30578512,
     gou:0.330578512,
     shaku:0.0330578512,    
-    shakutsubo:0.09183,
-    jo:1.6528926,
-    hojo:9.182736453,
+    Canada:9985*(10**9),
     Japan:378000000000,
+    Australia: 7692024*(10**6),
     USA:9.834*(10**12),
+    China:9597*(10**9),
     LandOnEarth:147244000*(10**6),
 }
 
@@ -202,9 +202,9 @@ class AreaCalculator extends React.Component {
     const tsubo = tryConvert(areaStr, originalScale, "tsubo")
     const se = tryConvert(areaStr, originalScale, "se")
     const tan = tryConvert(areaStr, originalScale, "tan")
-    const shakutsubo = tryConvert(areaStr, originalScale, "shakutsubo")
-    const jo = tryConvert(areaStr, originalScale, "jo")    
-    const hojo = tryConvert(areaStr, originalScale, "hojo")
+    const China = tryConvert(areaStr, originalScale, "China")
+    const Australia = tryConvert(areaStr, originalScale, "Australia")    
+    const Canada = tryConvert(areaStr, originalScale, "Canada")
     const squareMilliMeter = tryConvert(areaStr, originalScale, "squareMilliMeter")
     const squareCentiMeter = tryConvert(areaStr, originalScale, "squareCentiMeter")
     const Japan = tryConvert(areaStr, originalScale, "Japan")
@@ -255,47 +255,46 @@ class AreaCalculator extends React.Component {
                     onClear={this.clear}
                     onAlert={this.alertMessage}
                     onHandleChange={this.handleChange} />
-                </div>
+            </div>
 
 
-<div className="col s12 m3">
-            <AreaInput
-                scale="squareMile"
-                areaN={squareMile}
-                onClear={this.clear}
-                onAlert={this.alertMessage}
-                onHandleChange={this.handleChange} />
-            <AreaInput
-              scale="acre"
-              areaN={acre}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />         
-          <AreaInput
-              scale="squarePerch"
-              areaN={squarePerch}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />              
-            <AreaInput
-              scale="squareYard"
-              areaN={squareYard}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />              
-          <AreaInput
-              scale="squareFeet"
-              areaN={squareFeet}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />
-          <AreaInput
-              scale="squareInch"
-              areaN={squareInch}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />                  
-
+            <div className="col s12 m3">
+                <AreaInput
+                    scale="squareMile"
+                    areaN={squareMile}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />
+                <AreaInput
+                    scale="acre"
+                    areaN={acre}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />         
+                <AreaInput
+                    scale="squarePerch"
+                    areaN={squarePerch}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />              
+                <AreaInput
+                    scale="squareYard"
+                    areaN={squareYard}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />              
+                <AreaInput
+                    scale="squareFeet"
+                    areaN={squareFeet}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />
+                <AreaInput
+                    scale="squareInch"
+                    areaN={squareInch}
+                    onClear={this.clear}
+                    onAlert={this.alertMessage}
+                    onHandleChange={this.handleChange} />                  
         </div>
 
         <div className="col s12 m3">
@@ -338,24 +337,6 @@ class AreaCalculator extends React.Component {
         </div>
 
         <div className="col s12 m3">
-            <AreaInput
-              scale="shakutsubo"
-              areaN={shakutsubo}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />
-            <AreaInput
-              scale="jo"
-              areaN={jo}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />                               
-            <AreaInput
-              scale="hojo"
-              areaN={hojo}
-              onClear={this.clear}
-              onAlert={this.alertMessage}
-              onHandleChange={this.handleChange} />
 
             <AreaInput
               scale="Japan"
@@ -364,8 +345,26 @@ class AreaCalculator extends React.Component {
               onAlert={this.alertMessage}
               onHandleChange={this.handleChange} />
             <AreaInput
+              scale="Canada"
+              areaN={Canada}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onHandleChange={this.handleChange} />              
+            <AreaInput
+              scale="Australia"
+              areaN={Australia}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onHandleChange={this.handleChange} />                      
+            <AreaInput
               scale="USA"
               areaN={USA}
+              onClear={this.clear}
+              onAlert={this.alertMessage}
+              onHandleChange={this.handleChange} />              
+            <AreaInput
+              scale="China"
+              areaN={China}
               onClear={this.clear}
               onAlert={this.alertMessage}
               onHandleChange={this.handleChange} />              

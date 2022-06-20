@@ -14,7 +14,7 @@ const scaleNames = {
     year: 'Year',
     fourYears:'4 Years',
     decade: 'Decade',
-    century:'century', 
+    century:'Century', 
 };
 const scaleNames2 = {
     second: '（秒）',
