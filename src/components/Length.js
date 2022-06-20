@@ -2,7 +2,7 @@ import React from 'react';
 import LengthInput from './LengthInput';
 
 //below criterion value is that 1 that scale equals what meter
-const valuesInMeters = {
+const valuesInMeter = {
   kilo:1000,
   meter:1,
   centi:0.01,
@@ -36,7 +36,7 @@ function tryConvert(lengthStr, originalScale, targetScale) {
   if (Number.isNaN(input)) {
     return '';
   }
-  const ratio = valuesInMeters[originalScale]/valuesInMeters[targetScale];
+  const ratio = valuesInMeter[originalScale]/valuesInMeter[targetScale];
   const output = input*ratio;
   const string = output.toString(10);
   const stringArray = string.split('');
