@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Simulate } from 'react-dom/test-utils';
+import { render, fireEvent } from '@testing-library/react';
 import Length from './Length';
 import Weight from './Weight';
 import Area from './Area';
@@ -14,14 +13,14 @@ beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
 });
+// Testing Library unmounts rendered trees automatically after each test.
 afterEach(() => {
-  ReactDOM.unmountComponentAtNode(container);
   container.remove();
 });
 
 function mount(Component) {
   let calculator;
-  ReactDOM.render(<PrecisionProvider><Component ref={instance => { calculator = instance; }} /></PrecisionProvider>, container);
+  render(<PrecisionProvider><Component ref={instance => { calculator = instance; }} /></PrecisionProvider>, { container });
   return calculator;
 }
 
@@ -33,8 +32,7 @@ function inputFor(label) {
 }
 
 function change(element, value) {
-  element.value = value;
-  Simulate.change(element);
+  fireEvent.change(element, { target: { value } });
 }
 
 [[Length, 'length', 'Meter（メートル）', 'Centi Meter', '100'],
@@ -48,7 +46,7 @@ function change(element, value) {
     change(inputFor(sourceLabel), '1');
     expect(inputFor(sourceLabel).value).toBe('1');
     expect(inputFor(targetLabel).value).toBe(expected);
-    Simulate.click(container.querySelector('button'));
+    fireEvent.click(container.querySelector('button'));
     Array.from(container.querySelectorAll('fieldset input')).forEach(input => expect(input.value).toBe(''));
     expect(container.querySelector('[role="status"]')).toBe(null);
   });
@@ -108,7 +106,7 @@ test('temperature boiling verdict uses the calculation result, regardless of dis
   change(inputFor('Celsius'), '100abc');
   expect(inputFor('Fahrenheit').value).toBe('');
   expect(container.querySelector('#boil, #cool')).toBe(null);
-  Simulate.click(container.querySelector('button'));
+  fireEvent.click(container.querySelector('button'));
   expect(inputFor('Celsius').value).toBe('');
 });
 

@@ -243,7 +243,7 @@ visible `≈` marks and explanatory tooltips:
 
 ## Verification and runtime
 
-`CI=true npm test -- --runInBand --watchAll=false` runs the CRA/Jest suite.
+`npm test -- --run` runs the Vitest suite (jsdom environment) once.
 Independent fixtures cover every factor in both directions. All 1789 linear
 unit pairs are checked for six inputs (zero, negative decimal, decimal with
 embedded zeros, >Number's integer precision, 1e1000, 1e-1000) against a
@@ -252,29 +252,25 @@ Additional tests cover exact relationships, calendar/definition variants,
 temperature offsets (all four temperature pairs against a 1200-digit oracle),
 strict validation, display precision and React edits.
 
-`npm run lint` checks `src` and `scripts`. The unused historical prototype
-`src/components/trush/zlength2.js` has an existing unused-variable warning;
-it does not enter the application bundle.
+`npm run lint` checks the project with ESLint's flat config (`eslint.config.js`).
+`no-unused-vars` keeps the former `eslint-config-react-app` options. The unused
+historical prototype `src/components/trush` has broken imports; it is excluded
+from lint and tests and does not enter the application bundle.
 
-`npm run build` builds production output. CRA 3/Webpack 4 uses MD4 hashes,
-which fail under modern OpenSSL defaults. `scripts/react-scripts.js` enables
-Node's legacy provider only for the build/start subprocess on Node ≥17.
-`react-scripts` is pinned to 3.4.4, which includes webpack-dev-server 3.11.0.
-The previous server (3.1.14) loaded `spdy` at module initialization, causing
-`No such module: http_parser` on Node 24 even for HTTP. The
-[updated server loads it only in the old-Node HTTPS branch](https://github.com/webpack/webpack-dev-server/blob/v3.11.0/lib/Server.js).
-React remains 16.6.3 in the lockfile; routing, conversions, unit inventory and
-the existing responsive grid remain unchanged by this tooling update.
+`npm run build` builds production output with Vite into `build`, which
+`firebase.json` and `server.js` serve. The toolchain is Vite 8, React 19,
+React Router 8 and Vitest 5, and needs Node ^22.22 or ≥24.15; it replaces
+Create React App, so the OpenSSL compatibility wrapper is no longer needed.
+Routing, conversions, unit inventory and the existing responsive grid are
+unchanged by this tooling update.
 
-Final validation in the workspace (Node 24.21.0):
+Final validation in the workspace (Node 24.21.0, npm 12.1.0):
 
 | Check | Result |
 | --- | --- |
-| CRA/Jest, noninteractive | 2 suites, 195 tests passed; includes 10,734 linear pair/input comparisons and reverse checks |
-| `npm run lint` | Exit 0; 0 errors, 1 existing unused-variable warning in the archived prototype |
-| `npm run build` | Exit 0; production build compiled successfully with the compatibility wrapper |
-| `npm start` (browser opening disabled, test port 3100) | Development compilation succeeded; `/length` and the runtime/application JavaScript returned HTTP 200; server stopped after verification |
-| Git whitespace check with CRLF recognized | Passed |
-
-The existing toolchain reports Node deprecation notices. These do not prevent
-the tests, development server or production build.
+| Vitest, noninteractive | 2 files, 195 tests passed; includes 10,734 linear pair/input comparisons and reverse checks |
+| `npm run lint` | Exit 0; 0 errors, 1 react-refresh warning (`PrecisionControls.jsx` exports a context beside components) |
+| `npm run build` | Exit 0; production build written to `build` |
+| `npm run dev` (test port 3100) | `/`, `/length` and the application modules returned HTTP 200; server stopped after verification |
+| Router smoke check | Navbar links reach every calculator route, `NavLink` receives `active`, no console errors |
+| `npm audit` | 0 vulnerabilities |

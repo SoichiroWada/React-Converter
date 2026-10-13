@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link, NavLink, withRouter } from 'react-router-dom'
+import { Link, NavLink } from 'react-router'
 
-const Navbar = (props) => {
+const Navbar = () => {
 
     return (
         <nav className="nav-wrapper row" id="navbar">
@@ -23,4 +23,4 @@ const Navbar = (props) => {
     )
 }
 
-export default withRouter(Navbar)
+export default Navbar
