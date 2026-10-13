@@ -1,4 +1,5 @@
 import React from 'react';
+import { isApproximate, unitNote } from '../conversion/units';
 
 const scaleNames = {
     squareKiloMeter:'Square Kilo Meter',
@@ -41,7 +42,7 @@ const scaleNames2 = {
     squareMile:'（平方マイル）',
     acre:'(エーカー)',
     cho:'（町）',
-    tan:'（半）',
+    tan:'（反）',
     se:'（畝）',
     tsubo:'（坪）',
     gou:'（合）',
@@ -60,7 +61,7 @@ function AreaInput (props) {
     const scale = props.scale;
   
     function handleChange(e) {
-        console.log('e.target.value', e.target.value, typeof(e.target.value));
+
         props.onHandleChange(e.target.value, scale);
     }
 
@@ -74,14 +75,14 @@ function AreaInput (props) {
 
     if (event.keyCode === 229){
       props.onAlert(229)
-    } else if (EventTarget.keyCode !== 229){
+    } else if (event.keyCode !== 229){
       props.onAlert(230)
     }
   }
 
     return (
-      <fieldset className="rain">
-        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+      <fieldset className="rain" title={unitNote('area', scale)}>
+        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}{isApproximate('area', scale) ? ' ≈' : ''}</legend>
         <input id="input" value={areaN} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
   )

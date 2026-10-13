@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Unit conversions use `decimal.js` at 30 significant digits. Display precision
+can be selected independently; the input text and calculation results remain
+unchanged. See [the complete unit audit and definitions](docs/conversions.md)
+for exact factors, comparison quantities, calendar conventions and tests.
+
+Run noninteractive verification with
+`CI=true npm test -- --runInBand --watchAll=false`, `npm run lint`, and
+`npm run build`. Build/start scripts include compatibility with modern Node's
+OpenSSL defaults while retaining the existing Create React App toolchain.
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -2,25 +2,14 @@ import React from 'react';
 import TemperatureInput from './TemperatureInput';
 import BoilingVerdict from './BoilingVerdict';
 
-function toCelsius(fahrenheit) {
-  return (fahrenheit - 32) * 5 / 9;
-}
-
-function toFahrenheit(celsius) {
-  return (celsius * 9 / 5) + 32;
-}
-
-function tryConvert(temperature, converter) {
-  const input = parseFloat(temperature);
-  if (Number.isNaN(input)) {
-    return '';
-  }
-  const output = converter(input);
-  const rounded = Math.round(output * 1000) / 1000;
-  return rounded.toString();
-}
+import PrecisionControls, { PrecisionContext, InputStatus } from './PrecisionControls';
+import { createConversionSession, displayValue } from '../conversion/convert';
 
 class Calculator extends React.Component {
+  static contextType = PrecisionContext;
+
+  conversion = createConversionSession('temperature');
+
   constructor(props) {
     super(props);
     this.handleCChangeToF = this.handleCChangeToF.bind(this);
@@ -48,11 +37,14 @@ class Calculator extends React.Component {
   render() {
     const scale = this.state.scale;
     const temperature = this.state.temperature;
-    const celsius = scale === 'f' ? tryConvert(temperature, toCelsius) : temperature;
-    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit) : temperature;
+    const result = this.conversion(temperature, scale);
+    const celsius = displayValue(temperature, scale, 'c', result.values.c, this.context);
+    const fahrenheit = displayValue(temperature, scale, 'f', result.values.f, this.context);
 
     return (
       <div className="uBody">
+        <PrecisionControls />
+        <InputStatus invalid={result.invalid} />
         <h5>Temperature Converter（温度変換）</h5>
         <TemperatureInput
           scale="c"
@@ -64,7 +56,7 @@ class Calculator extends React.Component {
           onTemperatureChange={this.handleFChangeToC} />
         <button id="btn-temp" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
         <BoilingVerdict
-          celsius={parseFloat(celsius)} />
+          celsius={result.values.c} />
       </div>
     );
   }

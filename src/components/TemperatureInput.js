@@ -9,8 +9,8 @@ const Temperature = (props) => {
 
   function handleChange(e) {
     props.onTemperatureChange(e.target.value);
-    console.log('e.target.value:',e.target.value);
-    console.log('props in handleChange:',props);
+
+
   }
 
     const temperature = props.temperature;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { isApproximate, unitNote } from '../conversion/units';
 
 const scaleNames = {
     second: 'Second',
@@ -11,10 +12,10 @@ const scaleNames = {
     month29: 'Month29',
     month30: 'Month30',
     month31: 'Month31',
-    year: 'Year',
-    fourYears:'4 Years',
-    decade: 'Decade',
-    century:'Century', 
+    year: 'Year (365 days)',
+    fourYears:'4 Years (1,460 days)',
+    decade: 'Decade (3,650 days)',
+    century:'Century (36,500 days)',
 };
 const scaleNames2 = {
     second: '（秒）',
@@ -39,7 +40,7 @@ function LengthInput (props) {
   const scale = props.scale;
   
   function handleChange(e) {
-    console.log('e.target.value', e.target.value, typeof(e.target.value));
+
     props.onLengthChange(e.target.value, scale);
   }
 
@@ -53,14 +54,14 @@ function LengthInput (props) {
 
     if (event.keyCode === 229){
       props.onAlert(229)
-    } else if (EventTarget.keyCode !== 229){
+    } else if (event.keyCode !== 229){
       props.onAlert(230)
     }
   }
 
     return (
-      <fieldset className="rain">
-        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+      <fieldset className="rain" title={unitNote('time', scale)}>
+        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}{isApproximate('time', scale) ? ' ≈' : ''}</legend>
         <input id="input" value={timeN} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
   )

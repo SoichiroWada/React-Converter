@@ -1,4 +1,5 @@
 import React from 'react';
+import { isApproximate, unitNote } from '../conversion/units';
 
 const scaleNames = {
     milligram:'Milli Gram',
@@ -19,7 +20,7 @@ const scaleNames = {
     troyOunce:'Troy Ounce',
     troyPound:'Troy Pound',
     monme:'Monme',
-    ryo:'Ryo',
+    ryo:'Ryo (10 monme)',
     kin:'Kin',
     kan:'Kan',
     sumoWrestler:'Sumo Wrestler',
@@ -60,7 +61,7 @@ function WeightInput (props) {
   const scale = props.scale;
   
   function handleChange(e) {
-    console.log('e.target.value', e.target.value, typeof(e.target.value));
+
     props.onLengthChange(e.target.value, scale);
   }
 
@@ -74,14 +75,14 @@ function WeightInput (props) {
 
     if (event.keyCode === 229){
       props.onAlert(229)
-    } else if (EventTarget.keyCode !== 229){
+    } else if (event.keyCode !== 229){
       props.onAlert(230)
     }
   }
 
     return (
-      <fieldset className="rain">
-        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+      <fieldset className="rain" title={unitNote('mass', scale)}>
+        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}{isApproximate('mass', scale) ? ' ≈' : ''}</legend>
         <input id="input" value={weightN} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
   )

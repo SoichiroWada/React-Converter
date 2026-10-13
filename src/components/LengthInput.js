@@ -1,4 +1,5 @@
 import React from 'react';
+import { isApproximate, unitNote } from '../conversion/units';
 
 const scaleNames = {
   kilo: 'Kilo Meter',
@@ -20,7 +21,7 @@ const scaleNames = {
   tokyoLondon: 'Tokyo - London',
   equator: 'Equator',
   lightSec: 'Light Second',
-  earthOrbit: 'Earth Orbit',
+  earthOrbit: 'Astronomical Unit',
   lightYear: 'Light Year',  
 };
 const scaleNames2 = {
@@ -43,7 +44,7 @@ const scaleNames2 = {
   tokyoLondon: '（東京－ロンドン間）',
   equator: '（地球の赤道）',
   lightSec: '（光秒）',
-  earthOrbit: '（地球の太陽周回軌道）',
+  earthOrbit: '（天文単位）',
   lightYear: '（光年）',
 };
 
@@ -53,7 +54,7 @@ function LengthInput (props) {
   const scale = props.scale;
   
   function handleChange(e) {
-    console.log('e.target.value', e.target.value, typeof(e.target.value));
+
     props.onLengthChange(e.target.value, scale);
   }
 
@@ -67,14 +68,14 @@ function LengthInput (props) {
 
     if (event.keyCode === 229){
       props.onAlert(229)
-    } else if (EventTarget.keyCode !== 229){
+    } else if (event.keyCode !== 229){
       props.onAlert(230)
     }
   }
 
     return (
-      <fieldset className="rain">
-        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}</legend>
+      <fieldset className="rain" title={unitNote('length', scale)}>
+        <legend><span id="text"></span>{scaleNames[scale]}{scaleNames2[scale]}{isApproximate('length', scale) ? ' ≈' : ''}</legend>
         <input id="input" value={lengthN} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
   )

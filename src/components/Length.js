@@ -1,148 +1,12 @@
 import React from 'react';
 import LengthInput from './LengthInput';
-
-//below criterion value is that 1 that scale equals what meter
-const valuesInMeter = {
-  kilo:1000,
-  meter:1,
-  centi:0.01,
-  milli:0.001,
-  inch:0.0254,
-  feet:0.3048,
-  yard:0.9144,
-  mile:1609.344,
-  sun:0.030303030303030303030303,
-  shaku:0.30303030303030303030303,
-  ken:1.818181818181818181818181818,
-  cho:109.090909090909090909090,
-  ri:3927.272727272727272727272,
-  kairi:1852,
-  fuji:3776,
-  everest:8848.86,
-  tokyoLondon:9553000,
-  equator:40075017,
-  lightSec:299792458,
-  earthOrbit:149597870000,
-  lightYear:9460730472580800,
-}
-
-function tryConvert(lengthStr, originalScale, targetScale) {
-
-  if (originalScale === targetScale){
-    return lengthStr;
-  }
-
-  const input = parseFloat(lengthStr);
-  if (Number.isNaN(input)) {
-    return '';
-  }
-  const ratio = valuesInMeter[originalScale]/valuesInMeter[targetScale];
-  const output = input*ratio;
-  const string = output.toString(10);
-  const stringArray = string.split('');
-
-  const testResultForFourZeros = consectiveZerosUnderDotFinder(stringArray, 4)
-  const testResultForNineNines = consectiveNineFinder(stringArray)
-  const dotPosition = dotPositionFinder(stringArray) ? dotPositionFinder(stringArray)+1: null;
-
-  if (testResultForNineNines) {
-    const realLastNinePosition = testResultForNineNines + 1;
-
-    if (dotPosition) {
-      if (dotPosition < realLastNinePosition) {
-        const differenceBetweenDotAndlastNine = realLastNinePosition - dotPosition;
-        const valueForMathRound = differenceBetweenDotAndlastNine;
-        const adjusted = Math.round(output*(10**valueForMathRound))/(10**valueForMathRound)
-        return adjusted
-      }
-      else if (realLastNinePosition < dotPosition) {
-        const differenceBetweenDotAndlastNine = dotPosition - realLastNinePosition;
-        const valueForMathRound = differenceBetweenDotAndlastNine;
-        const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
-        return adjusted
-      }
-    } else {
-      const difference = stringArray.length - realLastNinePosition;
-      const valueForMathRound = difference;
-      const adjusted = Math.round(output/(10**valueForMathRound))*(10**valueForMathRound)
-      return adjusted;
-    }
-  }
-
-  // zero continues after dot for 4 zeros
-  if (dotPosition && testResultForFourZeros) {
-    const zeroStartingPositionForFourZeros = testResultForFourZeros-2;
-    const slicedStringToArray = stringArray.slice(0, zeroStartingPositionForFourZeros-1);
-    const joined = slicedStringToArray.join('');
-    const converted = Number(joined);
-    return converted;
-  }
-  
-  const rounded = Math.round(output * 1000000000) / 1000000000;
-  return rounded
-  // return output;
-}
-
-function consectiveNineFinder (array) {
-  let counter = 0;
-  let dotCounter = 0;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === '9') {
-      counter++;
-    } else if (array[i] === '.') {
-      dotCounter++;
-    } else {
-      counter = 0;
-    }
-    if (counter === 9) {
-      if (dotCounter > 1){
-        return "Invalid Input";
-      } else {
-        return i;
-      }
-    }
-  }
-  return false;
-}
-
-
-function consectiveZerosUnderDotFinder (array, zeroCount) {
-  let counter = 0;
-  let dotCounter = 0;
-  let underDotPosition = false;
-  const numbersStr = ['1','2','3','4','5','6','7','8','9'];
-  let leadingNotZeroNumberExists = false;
-  for (let i = 0; i < array.length; i++) {
-      if (array[i] === '.') {
-          dotCounter++;
-          dotCounter === 1 ? underDotPosition = true : underDotPosition = false; 
-      }
-      if (numbersStr.includes(array[i])) {
-          leadingNotZeroNumberExists = true;
-      }
-      if (leadingNotZeroNumberExists && underDotPosition && array[i] === '0') {
-          counter++;
-      } else {
-          counter = 0;
-      }
-      if (counter === zeroCount) {
-          return i;
-      }
-  }
-return false;
-}
-
-
-function dotPositionFinder (array) {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === ".") {
-      return i;
-    }
-  }
-  return NaN;
-}
+import PrecisionControls, { PrecisionContext, InputStatus } from './PrecisionControls';
+import { createConversionSession, displayValue } from '../conversion/convert';
 
 class LengthCalculator extends React.Component {
+  static contextType = PrecisionContext;
+
+  conversion = createConversionSession('length');
 
   constructor(props) {
     super(props);
@@ -181,32 +45,35 @@ class LengthCalculator extends React.Component {
     
     const originalScale = this.state.originalScale;
     const lengthStr = this.state.lengthStr;
+    const result = this.conversion(lengthStr, originalScale);
     const aStyle = this.state.alertMessage === "OFF" ? {display: "none"} : {display:"inline"};
 
-    const kilo = tryConvert(lengthStr, originalScale, "kilo")
-    const meter = tryConvert(lengthStr, originalScale, "meter")
-    const centi = tryConvert(lengthStr, originalScale, "centi")
-    const milli = tryConvert(lengthStr, originalScale, "milli")
-    const inch = tryConvert(lengthStr, originalScale, "inch")
-    const feet = tryConvert(lengthStr, originalScale, "feet")
-    const yard = tryConvert(lengthStr, originalScale, "yard")
-    const mile = tryConvert(lengthStr, originalScale, "mile")
-    const sun = tryConvert(lengthStr, originalScale, "sun")
-    const shaku = tryConvert(lengthStr, originalScale, "shaku")
-    const ken = tryConvert(lengthStr, originalScale, "ken")
-    const cho = tryConvert(lengthStr, originalScale, "cho")
-    const ri = tryConvert(lengthStr, originalScale, "ri")
-    const kairi = tryConvert(lengthStr, originalScale, "kairi")
-    const fuji = tryConvert(lengthStr, originalScale, "fuji")
-    const everest = tryConvert(lengthStr, originalScale, "everest")
-    const tokyoLondon = tryConvert(lengthStr, originalScale, "tokyoLondon")    
-    const equator = tryConvert(lengthStr, originalScale, "equator")
-    const earthOrbit = tryConvert(lengthStr, originalScale, "earthOrbit")
-    const lightSec = tryConvert(lengthStr, originalScale, "lightSec")
-    const lightYear = tryConvert(lengthStr, originalScale, "lightYear")
+    const kilo = displayValue(lengthStr, originalScale, "kilo", result.values["kilo"], this.context)
+    const meter = displayValue(lengthStr, originalScale, "meter", result.values["meter"], this.context)
+    const centi = displayValue(lengthStr, originalScale, "centi", result.values["centi"], this.context)
+    const milli = displayValue(lengthStr, originalScale, "milli", result.values["milli"], this.context)
+    const inch = displayValue(lengthStr, originalScale, "inch", result.values["inch"], this.context)
+    const feet = displayValue(lengthStr, originalScale, "feet", result.values["feet"], this.context)
+    const yard = displayValue(lengthStr, originalScale, "yard", result.values["yard"], this.context)
+    const mile = displayValue(lengthStr, originalScale, "mile", result.values["mile"], this.context)
+    const sun = displayValue(lengthStr, originalScale, "sun", result.values["sun"], this.context)
+    const shaku = displayValue(lengthStr, originalScale, "shaku", result.values["shaku"], this.context)
+    const ken = displayValue(lengthStr, originalScale, "ken", result.values["ken"], this.context)
+    const cho = displayValue(lengthStr, originalScale, "cho", result.values["cho"], this.context)
+    const ri = displayValue(lengthStr, originalScale, "ri", result.values["ri"], this.context)
+    const kairi = displayValue(lengthStr, originalScale, "kairi", result.values["kairi"], this.context)
+    const fuji = displayValue(lengthStr, originalScale, "fuji", result.values["fuji"], this.context)
+    const everest = displayValue(lengthStr, originalScale, "everest", result.values["everest"], this.context)
+    const tokyoLondon = displayValue(lengthStr, originalScale, "tokyoLondon", result.values["tokyoLondon"], this.context)
+    const equator = displayValue(lengthStr, originalScale, "equator", result.values["equator"], this.context)
+    const earthOrbit = displayValue(lengthStr, originalScale, "earthOrbit", result.values["earthOrbit"], this.context)
+    const lightSec = displayValue(lengthStr, originalScale, "lightSec", result.values["lightSec"], this.context)
+    const lightYear = displayValue(lengthStr, originalScale, "lightYear", result.values["lightYear"], this.context)
 
     return (
       <div>
+        <PrecisionControls />
+        <InputStatus invalid={result.invalid} />
         <h5 id="h5">
           <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
         </h5>

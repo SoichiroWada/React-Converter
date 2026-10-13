@@ -4,6 +4,37 @@ body {
   color:white;
   background-color:black;
 }
+.precision-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75em;
+  margin: 1em;
+  font-size: 0.8em;
+}
+.precision-controls label {
+  color: white;
+  max-width: 100%;
+}
+.precision-controls select {
+  height: auto;
+  padding: 0.3em;
+  color: white;
+  background-color: #144b5e;
+  border-radius: 3px;
+  width: auto;
+  max-width: 100%;
+  font: inherit;
+}
+.precision-controls span {
+  color: #ccc;
+  font-size: 0.85em;
+}
+.input-status {
+  color: #ffd966;
+  margin: 1em;
+  font-size: 0.8em;
+}
 legend{
   text-align:left;
 }
@@ -131,5 +162,3 @@ legend{
     display: inline;
   }
 }
-
-
