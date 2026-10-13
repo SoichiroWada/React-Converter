@@ -42,21 +42,27 @@ class Calculator extends React.Component {
     const fahrenheit = displayValue(temperature, scale, 'f', result.values.f, this.context);
 
     return (
-      <div className="uBody">
-        <PrecisionControls />
+      <div>
+        <div className="page-toolbar">
+          <PrecisionControls />
+          <button className="waves-effect waves-light btn clear-btn" onClick={this.clear}>CLEAR</button>
+        </div>
         <InputStatus invalid={result.invalid} />
-        <h5>Temperature Converter（温度変換）</h5>
-        <TemperatureInput
-          scale="c"
-          temperature={celsius}
-          onTemperatureChange={this.handleCChangeToF} />
-        <TemperatureInput
-          scale="f"
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFChangeToC} />
-        <button id="btn-temp" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
-        <BoilingVerdict
-          celsius={result.values.c} />
+        <div className="uBody">
+          <h5>Temperature Converter（温度変換）</h5>
+          <TemperatureInput
+            scale="c"
+            temperature={celsius}
+            onClear={this.clear}
+            onTemperatureChange={this.handleCChangeToF} />
+          <TemperatureInput
+            scale="f"
+            temperature={fahrenheit}
+            onClear={this.clear}
+            onTemperatureChange={this.handleFChangeToC} />
+          <BoilingVerdict
+            celsius={result.values.c} />
+        </div>
       </div>
     );
   }

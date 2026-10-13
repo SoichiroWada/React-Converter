@@ -13,13 +13,21 @@ const Temperature = (props) => {
 
   }
 
+  function handleKey(event) {
+    if (event.key === "Delete") {
+      props.onClear()
+    } else if (event.keyCode === 32) {
+      props.onClear()
+    }
+  }
+
     const temperature = props.temperature;
     const scale = props.scale;
     // console.log('this.props in render:', this.props)
     return (
       <fieldset className="rain">
         <legend>Enter temperature in {scaleNames[scale]}</legend>
-        <input id="input" value={temperature} onChange={handleChange} autoComplete="off" />
+        <input id="input" value={temperature} onChange={handleChange} onKeyDown={handleKey} autoComplete="off" />
       </fieldset>
     );
 }

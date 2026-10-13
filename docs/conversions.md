@@ -268,9 +268,9 @@ Final validation in the workspace (Node 24.21.0, npm 12.1.0):
 
 | Check | Result |
 | --- | --- |
-| Vitest, noninteractive | 2 files, 195 tests passed; includes 10,734 linear pair/input comparisons and reverse checks |
+| Vitest, noninteractive | 3 files, 200 tests passed; includes 10,734 linear pair/input comparisons and reverse checks |
 | `npm run lint` | Exit 0; 0 errors, 1 react-refresh warning (`PrecisionControls.jsx` exports a context beside components) |
 | `npm run build` | Exit 0; production build written to `build` |
 | `npm run dev` (test port 3100) | `/`, `/length` and the application modules returned HTTP 200; server stopped after verification |
-| Router smoke check | Navbar links reach every calculator route, `NavLink` receives `active`, no console errors |
+| Routing (`src/App.test.jsx`) | Length is the top page, `/length` redirects to `/`, the logo returns to Length and its `NavLink` receives `active`; the tablet/phone menu tracks and changes the page |
 | `npm audit` | 0 vulnerabilities |

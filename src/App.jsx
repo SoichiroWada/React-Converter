@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import Navbar from './components/Navbar'
 import { PrecisionProvider } from './components/PrecisionControls'
-import Home from './components/Home'
 import Length from './components/Length'
 import Weight from './components/Weight'
 import Time from './components/Time'
@@ -18,8 +17,9 @@ class App extends Component {
       <div className="App">
         <Navbar></Navbar>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/length' element={<Length />} />
+          <Route path='/' element={<Length />} />
+          {/* Length moved to the top page; keep old /length links working. */}
+          <Route path='/length' element={<Navigate to='/' replace />} />
           <Route path='/weight' element={<Weight />} />
           <Route path='/area' element={<Area />} />
           <Route path='/time' element={<Time />} />

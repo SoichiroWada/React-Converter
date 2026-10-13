@@ -60,15 +60,29 @@ legend{
   padding-bottom:0.2em;
 }
 
-#btn-leng{
-  margin-top:1.0em;
-  margin-left:1.0em;
-  font-size:0.9em;
-  width:30em;
+/* PrecisionControls on the left, CLEAR at the top right of every calculator. */
+.page-toolbar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
 }
-#btn-temp{
-  margin-top:1.0em;
-  font-size:0.8em;
+.page-toolbar .precision-controls{
+  flex:1 1 auto;
+}
+.clear-btn{
+  flex:0 0 auto;
+  width:10em;
+  margin:1em;
+  font-size:0.9em;
+}
+@media screen and (max-width: 600px) {
+  .page-toolbar .precision-controls{
+    min-width:0;
+  }
+  .clear-btn{
+    width:auto;
+    margin:1em 0.75rem;
+  }
 }
 #navbar{
   color:white;
@@ -108,32 +122,42 @@ legend{
 #links{
   margin-right:1%;
 }
+/* Tablets and phones: small left-aligned logo and a page menu at the right. */
+@media screen and (max-width: 992px) {
+  #navbar{
+    position:relative;
+  }
+  #navbar #logo{
+    left:0;
+    transform:none;
+    margin-left:0.75rem;
+    font-size:1.2rem;
+  }
+  #navbar #links{
+    position:absolute;
+    top:0;
+    right:0.75rem;
+    height:100%;
+    margin:0;
+    display:flex;
+    align-items:center;
+  }
+  .nav-select{
+    display:inline-block;
+    width:auto;
+    height:auto;
+    padding:0.25em 0.5em;
+    color:white;
+    background-color:#144b5e;
+    border:1px solid white;
+    border-radius:3px;
+    font-size:1rem;
+    line-height:normal;
+    vertical-align:middle;
+  }
+}
 .active{
   background-color: rgb(12, 34, 95);
-}
-.flex-container {
-  display: flex;
-  justify-content: center;
-}
-
-.flex-container > div {
-  background-color: #f1f1f1;
-  width: 100px;
-  margin: 10px;
-  margin-top:0px;
-  text-align: center;
-  line-height: 75px;
-  font-size: 30px;
-}
-
-.box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.box > div {
-  text-align: center;
-  color: white;
 }
 
 

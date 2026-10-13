@@ -75,7 +75,10 @@ class AreaCalculator extends React.Component {
 
     return (
       <div>
-        <PrecisionControls />
+        <div className="page-toolbar">
+          <PrecisionControls />
+          <button className="waves-effect waves-light btn clear-btn" onClick={this.clear}>CLEAR</button>
+        </div>
         <InputStatus invalid={result.invalid} />
         <h5 id="h5">
           <span id="alertM" style={aStyle}>カナ漢字変換をOFFにしてください</span>
@@ -242,9 +245,6 @@ class AreaCalculator extends React.Component {
         </div>
       </div>
 
-        <div className='flex-container'>
-          <button id="btn-leng" className="waves-effect waves-light btn" onClick={this.clear}>CLEAR</button>
-        </div>
       </div>
     );
   }

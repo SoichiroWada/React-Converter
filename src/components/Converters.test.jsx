@@ -43,6 +43,7 @@ function change(element, value) {
     mount(Component);
     expect(container.querySelectorAll('fieldset').length).toBe(Object.keys(units[category]).length);
     expect(container.querySelector('.uBody.row .col.s12')).not.toBe(null);
+    expect(container.querySelector('.page-toolbar > .precision-controls + button.clear-btn')).not.toBe(null);
     change(inputFor(sourceLabel), '1');
     expect(inputFor(sourceLabel).value).toBe('1');
     expect(inputFor(targetLabel).value).toBe(expected);
@@ -108,6 +109,23 @@ test('temperature boiling verdict uses the calculation result, regardless of dis
   expect(container.querySelector('#boil, #cool')).toBe(null);
   fireEvent.click(container.querySelector('button'));
   expect(inputFor('Celsius').value).toBe('');
+});
+
+test('temperature: CLEAR sits in the toolbar and the Delete key and Space bar clear both fields', () => {
+  mount(Temperature);
+  expect(container.querySelector('.page-toolbar > .precision-controls + button.clear-btn')).not.toBe(null);
+  change(inputFor('Celsius'), '100');
+  expect(inputFor('Fahrenheit').value).toBe('212');
+  fireEvent.keyDown(inputFor('Fahrenheit'), { key: 'Delete' });
+  expect(inputFor('Celsius').value).toBe('');
+  expect(inputFor('Fahrenheit').value).toBe('');
+  expect(container.querySelector('#boil, #cool')).toBe(null);
+  change(inputFor('Fahrenheit'), '212');
+  expect(inputFor('Celsius').value).toBe('100');
+  fireEvent.keyDown(inputFor('Celsius'), { key: ' ', keyCode: 32 });
+  expect(inputFor('Celsius').value).toBe('');
+  expect(inputFor('Fahrenheit').value).toBe('');
+  expect(container.querySelector('#boil, #cool')).toBe(null);
 });
 
 test('ambiguous definitions and approximate comparisons are visible in the UI', () => {
