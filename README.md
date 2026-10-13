@@ -8,7 +8,11 @@ for exact factors, comparison quantities, calendar conventions and tests.
 Run noninteractive verification with
 `CI=true npm test -- --runInBand --watchAll=false`, `npm run lint`, and
 `npm run build`. Build/start scripts include compatibility with modern Node's
-OpenSSL defaults while retaining the existing Create React App toolchain.
+OpenSSL defaults. `react-scripts` is pinned to 3.4.4 so the development server
+avoids loading obsolete SPDY internals on Node 24; React remains version 16.
+
+For local browser testing, run `npm start` and open `http://localhost:3000`.
+Stop the development server with `Ctrl+C`.
 
 ## Available Scripts
 

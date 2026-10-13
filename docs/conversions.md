@@ -256,10 +256,15 @@ strict validation, display precision and React edits.
 `src/components/trush/zlength2.js` has an existing unused-variable warning;
 it does not enter the application bundle.
 
-`npm run build` builds production output. CRA 2/Webpack 4 uses MD4 hashes,
+`npm run build` builds production output. CRA 3/Webpack 4 uses MD4 hashes,
 which fail under modern OpenSSL defaults. `scripts/react-scripts.js` enables
 Node's legacy provider only for the build/start subprocess on Node ≥17.
-React, CRA, routing, unit inventory and the existing responsive grid remain.
+`react-scripts` is pinned to 3.4.4, which includes webpack-dev-server 3.11.0.
+The previous server (3.1.14) loaded `spdy` at module initialization, causing
+`No such module: http_parser` on Node 24 even for HTTP. The
+[updated server loads it only in the old-Node HTTPS branch](https://github.com/webpack/webpack-dev-server/blob/v3.11.0/lib/Server.js).
+React remains 16.6.3 in the lockfile; routing, conversions, unit inventory and
+the existing responsive grid remain unchanged by this tooling update.
 
 Final validation in the workspace (Node 24.21.0):
 
@@ -268,7 +273,8 @@ Final validation in the workspace (Node 24.21.0):
 | CRA/Jest, noninteractive | 2 suites, 195 tests passed; includes 10,734 linear pair/input comparisons and reverse checks |
 | `npm run lint` | Exit 0; 0 errors, 1 existing unused-variable warning in the archived prototype |
 | `npm run build` | Exit 0; production build compiled successfully with the compatibility wrapper |
+| `npm start` (browser opening disabled, test port 3100) | Development compilation succeeded; `/length` and the runtime/application JavaScript returned HTTP 200; server stopped after verification |
 | Git whitespace check with CRLF recognized | Passed |
 
-The existing toolchain also reports Node deprecation notices and an outdated
-`caniuse-lite` database. These do not prevent the tests or production build.
+The existing toolchain reports Node deprecation notices. These do not prevent
+the tests, development server or production build.

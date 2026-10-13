@@ -1,4 +1,4 @@
-// CRA 2 uses Webpack 4's MD4 hashes. Modern Node/OpenSSL disables MD4 by
+// CRA 3 uses Webpack 4's MD4 hashes. Modern Node/OpenSSL disables MD4 by
 // default; enable it only in the development/build subprocess, not the app.
 const { spawnSync } = require('child_process');
 const command = process.argv[2];
